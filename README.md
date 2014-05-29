@@ -64,9 +64,9 @@ nothing
 - UI: doT, jade, XSLT, etc
 
 ### 4) Tour Support
--Tour Init
--Prevent user from navigating outside tour
--Finishing/Exiting Tour
+- Tour Init
+- Prevent user from navigating outside tour
+- Finishing/Exiting Tour
 
 ### 5) Scalability Testing
 - Cluster support
