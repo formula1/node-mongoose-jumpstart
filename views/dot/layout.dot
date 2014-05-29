@@ -1,0 +1,17 @@
+<!Doctype html>
+<html>
+  <head>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div id="header"></div>
+      <div id="main">
+        {{=it.utils.include("/views/dot/main/"+it.rprop.content+".dot", it)}}
+      </div>
+      <div id=sidebar>
+        {{=it.utils.include("/views/dot/main/sidebar.dot", it)}}
+      </div>
+      <div id="footer"></div>
+    </div>
+  </body>
+</html>

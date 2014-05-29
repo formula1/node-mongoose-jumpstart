@@ -1,0 +1,56 @@
+var express = require("express");
+var app = express();
+//var session = require("express-session");
+//var MongoStore = require("connect-mongo")(session);
+
+//======Set Static Files=====
+app
+  .use( '/css', express.static( "public/css", maxAgesOption) )
+  .use( '/js', express.static( "public/js", maxAgesOption) )
+  .use( '/images', express.static( "public/images", maxAgesOption) )
+  .use( '/font', express.static( "public/font", maxAgesOption) )
+;
+
+//======Default to handling requests=====
+app
+  .use( require("compression")() )
+  .use( require("method-override")() )
+  .use( require("body-parser")() )
+;
+
+//=====ClientSide==========
+app
+//  .use( require("csurf")() ) //Cleints can only post data when allowed
+//  .use( require("connect-flash")() ) //Server send responses at whim
+  .use(require("express-device").capture() ) //for rendering according to device
+  .use(function(req, res, next){
+    res.locals = {
+//      csrf_token: req.csrfToken(),      //needed for csrf support
+//      messages: req.flash("info"),      //for connect-flash
+      device: req.device.type          //device type
+    };
+    next()
+  })
+;
+//Messages
+//Device Detection
+//Locals
+
+//=====Rendering==========
+var viewHandler = require("./viewhandler.js");
+app
+  .set('views', __dirname+"/../views")
+  .engine("dot", viewHandler)
+  .engine("html", viewHandler)
+;
+
+//=====Routing==========
+require("./routes")(app);
+
+
+//======Error Handler==========
+app
+  .use( express.errorHandler( { dumpException: true,  showStack: true } ) )
+;
+
+module.exports = app;

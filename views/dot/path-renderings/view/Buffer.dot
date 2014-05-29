@@ -1,0 +1,25 @@
+{{
+var data = it.data.toString('base64');
+var i = s.indexOf(',');
+var splits = [s.slice(0,i), s.slice(i+1)];
+
+var mimetype = splits[0].substring(splits[0].indexOf(":")+1, splits[0].indexOf(";"));
+var mimecategory = mimetype.substring(0, splits[0].indexOf("/"));
+}}
+{{? mimecategory== "image"}}
+  <img src="{{=it.utils.object2URL(it.instance)+path.path}}" />
+{{?? mimecategory == "sound"}}
+  <sound controls type="{{=mimetype}}" src="{{=it.utils.object2URL(it.instance)+path.path}}" />
+{{?? mimecategory == "video" }}
+  <video controls type="{{=mimetype}}" src="{{=it.utils.object2URL(it.instance)+path.path}}" />
+{{?? mimecategory == "text" }}
+  <pre>
+{{=atob(splits[1])}}
+  </pre>
+{{?? mimecategory == "application" }}
+  {{var unique = it.utils.getUnique();}}
+  <div>
+    <a target="{{=unique}}" href="it.utils.object2URL(it.instance)+path.path">Download {{=it.path.path}}</a>
+    <iframe name="{{=unique}}" style="display:none;" />
+  </div>
+{{??}}

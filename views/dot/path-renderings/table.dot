@@ -1,0 +1,77 @@
+{{? it.instances == 0}}
+  <h3>There are none Available here</h3>
+{{?? else}}
+  <h3>Items</h3>
+  {{ it.appendScript("/js/tablesaw.js")}}
+  {{ it.appendStyle("/js/tablesaw.css")}}
+  <table
+    class="tablesaw"
+    data-mode="swipe"
+    data-sortable
+    data-sortable-switch
+    data-minimap
+    data-mode-switch
+  >
+  <thead>
+    <tr>
+      <td>ID</td>
+      {{
+      var nestedPaths = {};
+      for(var i in model.schema.paths){
+      }}
+      {{ if(i.match(/^_|_$/)) continue; }}
+      {{? i.match(/.*\..*/) }}
+      {{
+        var nested = i.split(".")[0]
+        if(model.schema.nested[nested])
+          if(nested.hasOwnProperty(nested)){
+            nestedPaths[nested] = {};
+            nestedPaths[nested].instance = "Nested";
+            nestedPaths[nested].path = nested;
+            for(var j in model.schema.paths){
+              if(i.match("^"+nested+"."))
+                nestedPaths[nested][j.split(".")[1]] = model.schema.paths[j];
+            }
+          }
+        currentpath = nestedPaths[nested];
+      }}
+      {{?? else }}
+        currentpath = model.schema.paths[i];
+      {{??}}
+        <td>{{=currentpath.path}}</td>
+    </tr>
+  <thead>
+  <tbody>
+    {{~ instances :instance:key }}
+      <tr>
+        <td>
+          <a href="{{it.utils.object2URL(instance)}}">{{=instance._id}}</a>
+        </td>
+        {{
+        var nestedFinished = []
+        for(var path in model.schema.paths){
+          if(path.match(/^_/))
+            continue;
+          if(!path.match(/.*\..*/)){
+            }}
+            <td>{{=it.utils.mongooseUI(model.schema.paths[path], instance[path])}}</td>
+            {{
+            continue;
+          }
+          var nested = path.split(".")[0];
+          if(!model.schema.nested.hasOwnProperty(nested)){
+            }}
+            <td>{{=it.utils.mongooseUI(model.schema.paths[path],instance[path])}}</td>
+            {{
+            continue;
+          }
+          if(nestedFinished.indexOf(nested) != -1)
+            continue;
+          nestedFinished.push(nested);
+          }}
+          <td>{{=it.utils.mongooseUI(nestedPaths[nested],instance[nested])}}</td>
+          {{
+        }
+        }}
+      </tr>
+  </table>

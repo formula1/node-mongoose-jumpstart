@@ -1,0 +1,320 @@
+@font-face {
+  font-family: 'fontello';
+  src: url('../font/fontello.eot?79093744');
+  src: url('../font/fontello.eot?79093744#iefix') format('embedded-opentype'),
+       url('../font/fontello.woff?79093744') format('woff'),
+       url('../font/fontello.ttf?79093744') format('truetype'),
+       url('../font/fontello.svg?79093744#fontello') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'fontello';
+    src: url('../font/fontello.svg?79093744#fontello') format('svg');
+  }
+}
+*/
+ 
+ [class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: "fontello";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+ 
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+ 
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+     
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+ 
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+ 
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+ 
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+ 
+.icon-alarm_clock_snooze:before { content: '\e803'; } /* '' */
+.icon-envelope:before { content: '\e8ae'; } /* '' */
+.icon-alt_book_reading_read_manual:before { content: '\e808'; } /* '' */
+.icon-alt_box_shipping_package_delivery:before { content: '\e80a'; } /* '' */
+.icon-alt_bright_bulb_idea_lamp_light:before { content: '\e80b'; } /* '' */
+.icon-alt_bubble_comment_chat_message:before { content: '\e80c'; } /* '' */
+.icon-alt_computer_desktop_screen:before { content: '\e80f'; } /* '' */
+.icon-alt_database_drives_raid_db_storage_nas_network:before { content: '\e810'; } /* '' */
+.icon-alt_download_computer_files:before { content: '\e820'; } /* '' */
+.icon-alt_file_document_cv_curriculum_vitae_profile_id:before { content: '\e81f'; } /* '' */
+.icon-alt_iphone_mobile_chat_message_sms:before { content: '\e81d'; } /* '' */
+.icon-alt_location_pin_map:before { content: '\e81c'; } /* '' */
+.icon-alt_map_folder:before { content: '\e81b'; } /* '' */
+.icon-alt_movie_video_play:before { content: '\e819'; } /* '' */
+.icon-alt_music_note_playing:before { content: '\e817'; } /* '' */
+.icon-alt_phone_book_number_contact:before { content: '\e816'; } /* '' */
+.icon-alt_phone_telephone_call_contact:before { content: '\e815'; } /* '' */
+.icon-alt_photo_image_album:before { content: '\e814'; } /* '' */
+.icon-alt_ringer_sounds_volume_speakers:before { content: '\e811'; } /* '' */
+.icon-alt_settings_eq_control_panel_preferences:before { content: '\e821'; } /* '' */
+.icon-alt_settings_gear_preferences:before { content: '\e822'; } /* '' */
+.icon-alt_settings_tools_configuration_service_preferences:before { content: '\e823'; } /* '' */
+.icon-alt_shopping_cart_store_basket_purchase:before { content: '\e824'; } /* '' */
+.icon-alt_sign_path_directions_navigation:before { content: '\e825'; } /* '' */
+.icon-alt_star_favorite:before { content: '\e826'; } /* '' */
+.icon-alt_switch_on_off:before { content: '\e827'; } /* '' */
+.icon-alt_thin-023_calendar_date:before { content: '\e828'; } /* '' */
+.icon-alt_thin-024_calendar_date:before { content: '\e829'; } /* '' */
+.icon-alt_thin-123_location_pin_map:before { content: '\e82a'; } /* '' */
+.icon-alt_thin-136_shopping_cart_store_basket_purchase:before { content: '\e82b'; } /* '' */
+.icon-alt_thin-328_phone_book_number_contact:before { content: '\e82d'; } /* '' */
+.icon-alt_thinking_brain_head_mind:before { content: '\e82f'; } /* '' */
+.icon-alt_user_personal_id_profile:before { content: '\e830'; } /* '' */
+.icon-alt_wall_clock_time:before { content: '\e840'; } /* '' */
+.icon-alt_wireless_wifi_signal_hotspot:before { content: '\e83e'; } /* '' */
+.icon-alt_world_globe_internation_region_language_earth:before { content: '\e83d'; } /* '' */
+.icon-alt_write_pencil_new_edit:before { content: '\e83b'; } /* '' */
+.icon-analytics_bar_chart_diagram_presentation_sales:before { content: '\e838'; } /* '' */
+.icon-analytics_bar_chart_diagram:before { content: '\e836'; } /* '' */
+.icon-application_window_alert_error:before { content: '\e831'; } /* '' */
+.icon-application_window_alert_notification_error:before { content: '\e841'; } /* '' */
+.icon-application_window_cursor:before { content: '\e842'; } /* '' */
+.icon-application_window_message_box:before { content: '\e843'; } /* '' */
+.icon-application_window_settings_configuration:before { content: '\e844'; } /* '' */
+.icon-application_window_shell_code_comand_prompt:before { content: '\e845'; } /* '' */
+.icon-arrow_left_navigate_previous:before { content: '\e846'; } /* '' */
+.icon-arrow_right_navigate_next:before { content: '\e847'; } /* '' */
+.icon-arrow_rotate_left_counter_clockwise:before { content: '\e848'; } /* '' */
+.icon-arrow_rotate_right_clockwise:before { content: '\e849'; } /* '' */
+.icon-arrows_bidirectional:before { content: '\e84b'; } /* '' */
+.icon-arrows_curves:before { content: '\e84c'; } /* '' */
+.icon-arrows_direction_right:before { content: '\e84d'; } /* '' */
+.icon-arrows_repeat:before { content: '\e84e'; } /* '' */
+.icon-arrows_resize_split:before { content: '\e84f'; } /* '' */
+.icon-arrows_shuffle_crossing:before { content: '\e850'; } /* '' */
+.icon-arrows_split:before { content: '\e853'; } /* '' */
+.icon-attachment_paper_clip:before { content: '\e851'; } /* '' */
+.icon-bold_arrow:before { content: '\e860'; } /* '' */
+.icon-bomb:before { content: '\e800'; } /* '' */
+.icon-book_contact_profile_user:before { content: '\e86f'; } /* '' */
+.icon-book_reading_read_bookmark:before { content: '\e86e'; } /* '' */
+.icon-book_reading_read_manual:before { content: '\e86d'; } /* '' */
+.icon-book_shelf_wall:before { content: '\e86b'; } /* '' */
+.icon-book_writing_reading_read_manual:before { content: '\e86a'; } /* '' */
+.icon-bookmark:before { content: '\e869'; } /* '' */
+.icon-box_shipping_package:before { content: '\e865'; } /* '' */
+.icon-briefcase_suitcase_luggage_baggage:before { content: '\e862'; } /* '' */
+.icon-bright_bulb_idea_lamp_light:before { content: '\e861'; } /* '' */
+.icon-browse_list_bullets_check_survey:before { content: '\e873'; } /* '' */
+.icon-browse_list_bullets_thumbs:before { content: '\e874'; } /* '' */
+.icon-browse_list_grid_view:before { content: '\e876'; } /* '' */
+.icon-bubble_comment_chat_message_add_compose:before { content: '\e879'; } /* '' */
+.icon-bubble_comment_chat_message_like:before { content: '\e87a'; } /* '' */
+.icon-bubble_comment_chat_message_writing:before { content: '\e87b'; } /* '' */
+.icon-bubble_comment_chat_message:before { content: '\e87c'; } /* '' */
+.icon-building_industry_factory:before { content: '\e801'; } /* '' */
+.icon-calculator:before { content: '\e880'; } /* '' */
+.icon-calendar_date:before { content: '\e890'; } /* '' */
+.icon-call_support_phone_help_assistance:before { content: '\e88e'; } /* '' */
+.icon-cash_money_coins_bills:before { content: '\e889'; } /* '' */
+.icon-cash_money_coins:before { content: '\e887'; } /* '' */
+.icon-check_ok_done_success:before { content: '\e885'; } /* '' */
+.icon-checkbox_checked_yes_success:before { content: '\e884'; } /* '' */
+.icon-checkbox_x_checked_no:before { content: '\e883'; } /* '' */
+.icon-clipboard_inventory_box_archive:before { content: '\e882'; } /* '' */
+.icon-clipboard_inventory_box_export_open:before { content: '\e881'; } /* '' */
+.icon-clipboard_inventory_box_import_download:before { content: '\e891'; } /* '' */
+.icon-clipboard_inventory_box:before { content: '\e892'; } /* '' */
+.icon-closed_shop_store:before { content: '\e893'; } /* '' */
+.icon-cloud_files_upload_backup:before { content: '\e895'; } /* '' */
+.icon-cloud_sync_files_restore:before { content: '\e896'; } /* '' */
+.icon-cloud_weather_cloudy:before { content: '\e897'; } /* '' */
+.icon-comment_chat_message:before { content: '\e89c'; } /* '' */
+.icon-comment_quote_reply:before { content: '\e89e'; } /* '' */
+.icon-compose_write_pencil_new:before { content: '\e89f'; } /* '' */
+.icon-computer_desktop_screen:before { content: '\e802'; } /* '' */
+.icon-credit_card:before { content: '\e8a5'; } /* '' */
+.icon-dashboard_full_fuel_gauge:before { content: '\e8a2'; } /* '' */
+.icon-database_shared_map_storage_nas_network:before { content: '\e805'; } /* '' */
+.icon-delivery_box_shipping:before { content: '\e8b6'; } /* '' */
+.icon-delivery_van_truck_shipping:before { content: '\e8b7'; } /* '' */
+.icon-disc_cd_dvd_drive:before { content: '\e8b9'; } /* '' */
+.icon-disc_floppy_save:before { content: '\e8ba'; } /* '' */
+.icon-download_cloud_files_drive:before { content: '\e8c0'; } /* '' */
+.icon-download_import:before { content: '\e8d0'; } /* '' */
+.icon-drink_cocktail_disco_going_out_shake:before { content: '\e806'; } /* '' */
+.icon-eating_burger_hamburger_fast_food:before { content: '\e807'; } /* '' */
+.icon-education_study_school_learning_smart:before { content: '\e8c9'; } /* '' */
+.icon-fail_alert_error_unavailable:before { content: '\e8c7'; } /* '' */
+.icon-fail_dangerous_error_unavailable:before { content: '\e8c5'; } /* '' */
+.icon-file_document_attachment_paperclip:before { content: '\e8c3'; } /* '' */
+.icon-file_document_cv_curriculum_vitae_profile_id:before { content: '\e8d1'; } /* '' */
+.icon-file_document_cv_curriculum_vitae:before { content: '\e8d2'; } /* '' */
+.icon-file_document_doc_word:before { content: '\e8d3'; } /* '' */
+.icon-file_document_export_upload:before { content: '\e80e'; } /* '' */
+.icon-file_document_export:before { content: '\e8d5'; } /* '' */
+.icon-file_document_font:before { content: '\e8d6'; } /* '' */
+.icon-file_document_import_download:before { content: '\e809'; } /* '' */
+.icon-file_document_import:before { content: '\e80d'; } /* '' */
+.icon-file_document_lock_security_password:before { content: '\e8db'; } /* '' */
+.icon-file_document_pdf_adobe_acrobat:before { content: '\e8dc'; } /* '' */
+.icon-file_document_to_do:before { content: '\e8e0'; } /* '' */
+.icon-file_document_zip_rar_compressed:before { content: '\e8ed'; } /* '' */
+.icon-heart_favorite_like:before { content: '\e8f8'; } /* '' */
+.icon-house_home:before { content: '\e8ff'; } /* '' */
+.icon-information:before { content: '\e900'; } /* '' */
+.icon-ipad_tablet_touch_screen:before { content: '\e812'; } /* '' */
+.icon-iphone_smart_phone_mobile:before { content: '\e90c'; } /* '' */
+.icon-law_justice_lawyer_judge_court_attorney:before { content: '\e813'; } /* '' */
+.icon-layers:before { content: '\e904'; } /* '' */
+.icon-leaf_nature_bio_plant_green_organic:before { content: '\e903'; } /* '' */
+.icon-like_thumbs_up_vote:before { content: '\e901'; } /* '' */
+.icon-link_chain_url:before { content: '\e911'; } /* '' */
+.icon-location_compass_map:before { content: '\e914'; } /* '' */
+.icon-alert_attention_error:before { content: '\e804'; } /* '' */
+.icon-lock_rotate:before { content: '\e919'; } /* '' */
+.icon-lock_security_access_password:before { content: '\e91a'; } /* '' */
+.icon-mail_envelope_email_open:before { content: '\e91f'; } /* '' */
+.icon-mail_envelope_email_sent:before { content: '\e930'; } /* '' */
+.icon-map_folder:before { content: '\e927'; } /* '' */
+.icon-milk_tetra_pack:before { content: '\e818'; } /* '' */
+.icon-minus_remove:before { content: '\e922'; } /* '' */
+.icon-mouse_wire:before { content: '\e935'; } /* '' */
+.icon-move_navigate_window_screen_full:before { content: '\e937'; } /* '' */
+.icon-music_playing_cassette_tape:before { content: '\e94b'; } /* '' */
+.icon-newspaper_reading_news:before { content: '\e944'; } /* '' */
+.icon-open_box_shipping_package_delivery:before { content: '\e940'; } /* '' */
+.icon-open_shop_store:before { content: '\e81a'; } /* '' */
+.icon-paper_document_file_word:before { content: '\e958'; } /* '' */
+.icon-paper_document_file:before { content: '\e81e'; } /* '' */
+.icon-phone_telephone_call_on_hold_busy:before { content: '\e95f'; } /* '' */
+.icon-phone_telephone_call_ringing:before { content: '\e96f'; } /* '' */
+.icon-photo_image_camera_take_shot:before { content: '\e96a'; } /* '' */
+.icon-photo_image_camera:before { content: '\e969'; } /* '' */
+.icon-pin_bookmark:before { content: '\e965'; } /* '' */
+.icon-plane_flight_airplane:before { content: '\e964'; } /* '' */
+.icon-plane_paper_send:before { content: '\e963'; } /* '' */
+.icon-plus_add:before { content: '\e972'; } /* '' */
+.icon-printer:before { content: '\e976'; } /* '' */
+.icon-question_support_help:before { content: '\e97a'; } /* '' */
+.icon-recycle_bin_delete_garbage:before { content: '\e97f'; } /* '' */
+.icon-relay_holiday_tourist_beach_sea_sunbathing:before { content: '\e97e'; } /* '' */
+.icon-resize_window_screen_full:before { content: '\e990'; } /* '' */
+.icon-rocket_space:before { content: '\e98a'; } /* '' */
+.icon-rotate_counter_clockwise_arrow:before { content: '\e989'; } /* '' */
+.icon-rotate_sync_clockwise_recycle:before { content: '\e988'; } /* '' */
+.icon-rotate_sync:before { content: '\e987'; } /* '' */
+.icon-round_left_arrow_previous:before { content: '\e986'; } /* '' */
+.icon-round_right_arrow_next:before { content: '\e985'; } /* '' */
+.icon-servers_network_connection_internet_sitemap:before { content: '\e993'; } /* '' */
+.icon-settings_gear_preferences:before { content: '\e995'; } /* '' */
+.icon-settings_tools_configuration_service_preferences:before { content: '\e996'; } /* '' */
+.icon-shield_anti_virus_security_password_secure:before { content: '\e82c'; } /* '' */
+.icon-shopping_cart_store_basket_purchase_full:before { content: '\e99c'; } /* '' */
+.icon-shopping_cart_store_basket_purchase:before { content: '\e99d'; } /* '' */
+.icon-sign_path_directions_navigation:before { content: '\e9a0'; } /* '' */
+.icon-stopwatch_time:before { content: '\e9a9'; } /* '' */
+.icon-switch_on_off:before { content: '\e9a3'; } /* '' */
+.icon-tag_sales_price_shop:before { content: '\e9b1'; } /* '' */
+.icon-time_clock_watch:before { content: '\e82e'; } /* '' */
+.icon-to_do_clipboard_survey_petition:before { content: '\e9b6'; } /* '' */
+.icon-touch_id_fingerprint_security_access:before { content: '\e9b7'; } /* '' */
+.icon-upload_cloud_files_drive:before { content: '\e9cd'; } /* '' */
+.icon-upload_open_export:before { content: '\e9cc'; } /* '' */
+.icon-user_create_add_new:before { content: '\e9c6'; } /* '' */
+.icon-user_delete_remove:before { content: '\e832'; } /* '' */
+.icon-user_profile_avatar_female_woman:before { content: '\e9c3'; } /* '' */
+.icon-user_profile_avatar_male:before { content: '\e9c1'; } /* '' */
+.icon-users_group_couple_family:before { content: '\e9d8'; } /* '' */
+.icon-users_group:before { content: '\e9d9'; } /* '' */
+.icon-visability_view_watch_eye:before { content: '\e9db'; } /* '' */
+.icon-wallet_money_card_full:before { content: '\e9dd'; } /* '' */
+.icon-wallet_money_empty:before { content: '\e9de'; } /* '' */
+.icon-weather_rain_water_drop:before { content: '\e9e0'; } /* '' */
+.icon-window_layout_side_article_columns:before { content: '\e9eb'; } /* '' */
+.icon-winner_achievement_cup_prize_award:before { content: '\e9e8'; } /* '' */
+.icon-world_globe_internation_region_language_earth:before { content: '\e9e4'; } /* '' */
+.icon-write_pencil_new_edit:before { content: '\e9e1'; } /* '' */
+.icon-x_remove_delete_close_exit:before { content: '\e9f2'; } /* '' */
+.icon-zoom_find_search_magnifying_glass:before { content: '\e9f3'; } /* '' */
+.icon-zoom_in_magnify_plus:before { content: '\e9f4'; } /* '' */
+.icon-zoom_out_magnify_minus:before { content: '\e9f5'; } /* '' */
+.icon-chevron-right:before { content: '\e87e'; } /* '' */
+.icon-cart:before { content: '\e8a6'; } /* '' */
+.icon-left:before { content: '\e833'; } /* '' */
+.icon-right:before { content: '\e834'; } /* '' */
+.icon-up:before { content: '\e835'; } /* '' */
+.icon-down:before { content: '\e837'; } /* '' */
+.icon-continental-logo:before { content: '\e839'; } /* '' */
+.icon-twitter-bird:before { content: '\e83a'; } /* '' */
+.icon-earthpositive-logo:before { content: '\e83c'; } /* '' */
+.icon-soil_association:before { content: '\e85f'; } /* '' */
+.icon-paypal:before { content: '\e83f'; } /* '' */
+.icon-pinterest:before { content: '\e84a'; } /* '' */
+.icon-youtube:before { content: '\e852'; } /* '' */
+.icon-facebook-1:before { content: '\e854'; } /* '' */
+.icon-close-logo:before { content: '\e878'; } /* '' */
+.icon-carbon_footprint:before { content: '\e855'; } /* '' */
+.icon-fair_wear:before { content: '\e857'; } /* '' */
+.icon-organic_textiles:before { content: '\e858'; } /* '' */
+.icon-salvage-logo:before { content: '\e859'; } /* '' */
+.icon-shirt:before { content: '\e85a'; } /* '' */
+.icon-longsleeveshirt:before { content: '\e85b'; } /* '' */
+.icon-jacket:before { content: '\e85c'; } /* '' */
+.icon-trousers:before { content: '\e85d'; } /* '' */
+.icon-tank:before { content: '\e85e'; } /* '' */
+.icon-bag:before { content: '\e863'; } /* '' */
+.icon-shorts:before { content: '\e864'; } /* '' */
+.icon-hoody:before { content: '\e866'; } /* '' */
+.icon-tshirt:before { content: '\e867'; } /* '' */
+.icon-polo:before { content: '\e868'; } /* '' */
+.icon-cross:before { content: '\e856'; } /* '' */
+.icon-tick:before { content: '\e87d'; } /* '' */
+.icon-search:before { content: '\e8b1'; } /* '' */
+.icon-mail:before { content: '\e8a9'; } /* '' */
+.icon-grid:before { content: '\e8aa'; } /* '' */
+.icon-ok:before { content: '\e8af'; } /* '' */
+.icon-cancel:before { content: '\e8a3'; } /* '' */
+.icon-cancel-circled:before { content: '\e8a4'; } /* '' */
+.icon-edit:before { content: '\e8a8'; } /* '' */
+.icon-comment:before { content: '\e8a7'; } /* '' */
+.icon-list:before { content: '\e8ac'; } /* '' */
+.icon-save:before { content: '\e8b0'; } /* '' */
+.icon-facebook-squared:before { content: '\e875'; } /* '' */
+.icon-github:before { content: '\e870'; } /* '' */
+.icon-gplus-squared:before { content: '\e871'; } /* '' */
+.icon-linkedin-squared:before { content: '\e86c'; } /* '' */
+.icon-twitter-squared:before { content: '\e872'; } /* '' */
+.icon-login:before { content: '\e888'; } /* '' */
+.icon-logout:before { content: '\e88a'; } /* '' */
+.icon-key:before { content: '\e8ab'; } /* '' */
+.icon-tree:before { content: '\e8b2'; } /* '' */
+.icon-github-1:before { content: '\e89d'; } /* '' */
+.icon-github-circled:before { content: '\e8a0'; } /* '' */
+.icon-twitter:before { content: '\e89a'; } /* '' */
+.icon-twitter-circled:before { content: '\e89b'; } /* '' */
+.icon-facebook-circled:before { content: '\e898'; } /* '' */
+.icon-facebook-squared-1:before { content: '\e899'; } /* '' */
+.icon-gplus-circled:before { content: '\e88d'; } /* '' */
+.icon-tumblr-circled:before { content: '\e88f'; } /* '' */
+.icon-linkedin:before { content: '\e894'; } /* '' */
+.icon-linkedin-circled:before { content: '\e88b'; } /* '' */
+.icon-paypal-1:before { content: '\e88c'; } /* '' */
+.icon-add:before { content: '\e8a1'; } /* '' */
+.icon-menu-outline:before { content: '\e886'; } /* '' */
+.icon-menu:before { content: '\e87f'; } /* '' */
+.icon-yahoo:before { content: '\e877'; } /* '' */
+.icon-location_pin_map:before { content: '\e918'; } /* '' */

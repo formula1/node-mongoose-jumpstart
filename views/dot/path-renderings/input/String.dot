@@ -1,0 +1,17 @@
+{{ if(typeof it.data == "undefined") it.data = ""; }}
+{{ if(it.path.hasOwnProperty("enumValues") && path.enumValues.length > 0){ }}
+  <select name="{{path.path}}">
+    {{ for(var j=0;j<p_value.enumValues.length;j++){
+        if(cur_value == path.enumValues[j]){ }}
+        <option selected="selected" value="{{=path.enumValues[j]}}" >
+          {{=p_value.enumValues[j]}}
+        </option>
+      {{ }else{ }}
+        <option value="{{=path.enumValues[j]}}">
+          {{=path.enumValues[j]}}
+        </option>
+      {{ } }}
+{{ else if(p_value.regExp != null) }}
+  <input type="text" name="{{=path.path}}" value="{{=curvalue}}" pattern="{{=path.regExp}}" />
+{{ else }}
+  <input type="text" name="{{=path.path}}" value="{{=curvalue}}" />

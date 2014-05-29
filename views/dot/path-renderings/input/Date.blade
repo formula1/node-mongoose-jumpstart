@@ -1,0 +1,7 @@
+<input type="date"  name="{{=it.path.path}}">
+<script type="text/javascript">
+  $(function() {
+    $( "#{{=it.form.id}} [name={{=it.path.path}}]" ).datepicker();
+    $( "#{{=it.form.id}} [name={{=it.path.path}}]" ).datepicker("setDate",{{=it.data}});
+  });
+</script>

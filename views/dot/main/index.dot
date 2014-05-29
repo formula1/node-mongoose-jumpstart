@@ -1,0 +1,39 @@
+<h1>HomePage</h1>
+
+There are a total of {{=it.modelStats.length}} Model Types here
+There are a total of {{=it.grandtotal}} documents stored here
+
+<h3>Popular Items</h3>
+  <p>As Items are Requested we store the number of times it was requested. The
+  most requested items are here.</p>
+<h3>New Items</h3>
+  <p>When a new Object is created, add it to this list</p>
+<h3>Unique Items</h3>
+  <p>When a new Object is created or Updated, we check tags to see how many tags
+  it has similar to other objects. The Less it has, the more unique</p>
+
+
+<table>
+  <thead>
+    <tr>
+      <td>Model Name</td>
+      <td>Document Count</td>
+      <td>Create Count</td>
+      <td>Request Count</td>
+      <td>Update Count</td>
+      <td>Delete Count</td>
+    </tr>
+  </thead>
+  <tbody>
+  {{~ it.modelStats :value:key }}
+    <tr>
+      <td>{{=it.modelStats.modelName}}</td>
+      <td>{{=it.modelStats.doccount}}</td>
+      <td>{{=it.modelStats.createcount}}</td>
+      <td>{{=it.modelStats.requestcount}}</td>
+      <td>{{=it.modelStats.updatecount}}</td>
+      <td>{{=it.modelStats.deletecount}}</td>
+    </tr>
+  {{~}}
+  <tbody>
+</table>

@@ -1,0 +1,10 @@
+<ul class="sortable">
+  {{~it.data :value:key}}
+    <li>
+      {{=it.utils.include(
+        "/views/dot/path-renderings/view/"+it.path.caster.instance+".dot",
+        {utils:it.utils,data:value}
+      )}}
+    </li>
+  {{~}}
+</ul>

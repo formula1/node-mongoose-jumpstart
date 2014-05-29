@@ -1,0 +1,14 @@
+{{
+var childmodel = locals.model.utils.string2Model(it.path.options.ref)
+if(typeof it.data == "undefined")
+  it.data = "";
+<input type="text" name="{{=path.path}}" value="{{=curvalue}}">
+<script type="text/javascript">
+  jQuery(function($){
+    autocomplete(
+      "[name={{=it.path.path}}]",
+      "/{{=childmodel.modelName}/search?_id={{=it.data._id}}",
+      "_id"
+    );
+  });
+</script>

@@ -1,0 +1,32 @@
+{
+  "name": "jumpstart",
+  "version": "0.0.1",
+  "description": "Allows developers to have precreated routing for models and methods. Additionally ads a few model types that are useful for many applications.",
+  "main": "run.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies":{
+    "express": ">=4.0",
+    "body-parser":"latest",
+    "compression":"latest",
+    "method-override":"latest",
+    "express-session":"latest",
+    "errorhandler":"latest",
+    "csurf":"latest",
+
+    "connect-mongo": "latest",
+    "connect-flash":"latest",
+
+    "mongoose":"latest",
+
+    "dot":"latest",
+    "cheerio":"latest",
+    "express-device":"latest",
+    "node-html-encoder":"latest"
+
+
+  },
+  "author": "Sam Tobia",
+  "license": "ISC"
+}

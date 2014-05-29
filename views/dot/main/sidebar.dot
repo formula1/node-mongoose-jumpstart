@@ -1,0 +1,33 @@
+{{var unique = it.utils.getUnique();}}
+{{ it.utils.enqueueScript("/js/jquery.js"); }}
+<script type="text/javascript">
+    jQuery(function() {
+      $( "#{{=unique}}" ).accordion({heightStyle: "content"});
+    });
+</script>
+<div id="{{=unique}}">
+{{ for(var i in it.methods){ }}
+  {{  if(i.match(/^_|_$/)) continue; }}
+  {{ var url = it.utils.object2URL(it.focus); }}
+  <h3>{{=i}}</h3>
+  <div>
+    <form action="{{=url+i}}" method="POST" >
+      {{ var args = it.utils.getArgs(it.methods[i]); }}
+      {{~ args :arg:key}}
+        {{ if(arg.match(/req|request|res|response|next|cb|callback/)) continue; }}
+        <div>
+          <strong>{{=arg}}</strong>
+          {{? arg.match(/_$/) }}
+            <input type="password" name="{{=arg}}" />
+          {{?? else }}
+            <input type="text" name="{{=arg}}" />
+          {{??}}
+        </div>
+      {{~}}
+      <button type="submit">
+        Submit
+      </button>
+    </form>
+  </div>
+{{ } }}
+</div>

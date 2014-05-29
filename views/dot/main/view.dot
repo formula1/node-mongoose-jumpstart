@@ -1,0 +1,40 @@
+<h1>{{=it.data.model.modelName}}</h1>
+{{
+  var nestedPaths = {};
+
+  for(var i in model.schema.paths){
+}}
+{{ if(i.match(/^_|_$/)) continue; }}
+{{? i.match(/.*\..*/) }}
+{{
+  var nested = i.split(".")[0]
+  if(model.schema.nested[nested])
+    if(nested.hasOwnProperty(nested)){
+      nestedPaths[nested] = {};
+      nestedPaths[nested].instance = "Nested";
+      nestedPaths[nested].path = nested;
+      for(var j in model.schema.paths){
+        if(i.match("^"+nested+"."))
+          nestedPaths[nested][j.split(".")[1]] = model.schema.paths[j];
+      }
+    }
+  currentpath = nestedPaths[nested];
+}}
+{{?? else }}
+  currentpath = model.schema.paths[i];
+{{??}}
+<div>
+  <strong>{{=currentpath.path}}:</strong>
+  {{it.utils.mongooseUI(currentpath, it.mvc.instance[i])}}
+</div>
+<div>
+  <button type="submit">Save</button>
+  <a href="{{=url}}"><button type="button">Cancel</button></a>
+</div>
+{{
+  }
+}}
+<div>
+  <a href="{{=url}}update"><button type="button">Update</button></a>
+  <a href="{{=url}}delete"><button type="button">Delete</button></a>
+</div>

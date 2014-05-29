@@ -1,0 +1,14 @@
+{{
+  if(typeof it.data == "undefined")
+    var it.data = "undefined";
+  var list = ["true", "false"];
+}}
+<select name="{{=path.path}}" >
+  {{~list :value:index }}
+    <option
+    {{? it.data == value }}
+       selected="selected"
+    {{??}}
+    value="{{=value}}">{{=value }}</option>
+  {{~}}
+</select>

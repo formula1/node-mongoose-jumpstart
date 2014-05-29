@@ -1,0 +1,39 @@
+{{
+/*
+For now create an accordian group
+-create a list group item that shows the view of each with "drag and drop" and "delete" options
+-create a "add" group item with default listing
+
+*/
+
+}}
+<script type="text/javascript" >
+  jQuery(function($){
+    $( "#{{=it.form.id+it.path.path}}" ).accordion();
+    $( "#{{=it.form.id+it.path.path}} .sortable" ).sortable();
+  })
+</script>
+<div id="{{=it.form.id+it.path.path}}">
+  <h3>Items</h3>
+  <div>
+    <ul class="sortable">
+      {{~it.data :value:key}}
+        <li>
+          {{=it.utils.include(
+            "/views/dot/path-renderings/view/"+it.path.caster.instance+".dot",
+            {utils:it.utils,it.data[key]}
+          )}}
+          <input type="hidden" name="{{=it.path.path}}[]" value="{{=value}}" />
+          <button>Remove</button>
+        </li>
+      {{~}}
+    </ul>
+  </div>
+  <h3>Add</h3>
+  <div>
+    {{=it.utils.include(
+      "/views/dot/path-renderings/view/"+it.path.caster.instance+".dot"
+      ,{utils:it.utils,path:{path:"add_to"+path.path},value:void(0)}
+    )}}
+  </div>
+</div>

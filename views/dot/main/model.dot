@@ -1,0 +1,30 @@
+<h1>{{=it.mvc.modelName}}</h1>
+
+There are a total of {{=it.grandtotal}} documents stored here
+
+<div>
+  <h2>User Oriented</h2>
+  <h3>Popular Items</h3>
+    <p>As Items are Requested we store the number of times it was requested. The
+    most requested items are here.</p>
+  <h3>New Items</h3>
+    <p>When a new Object is created, add it to this list</p>
+  <h3>Unique Items</h3>
+    <p>When a new Object is created or Updated, we check tags to see how many tags
+    it has similar to other objects. The Less it has, the more unique</p>
+</div>
+<div>
+  <h2>Statistics</h2>
+  <ul>
+    <li>{{=it.modelStats.modelName}}</li>
+    <li>{{=it.modelStats.doccount}}</li>
+    <li>{{=it.modelStats.createcount}}</li>
+    <li>{{=it.modelStats.requestcount}}</li>
+    <li>{{=it.modelStats.updatecount}}</li>
+    <li>{{=it.modelStats.deletecount}}</li>
+  </ul>
+</div>
+<div>
+  <h2>ID Ordered List</h2>
+  {{=it.utils.include("/views/dot/path-renderings/table.dot", it)}}
+</div>
