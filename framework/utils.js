@@ -14,8 +14,8 @@ var utils = {
     var to_pop = "";
     for(var key in paths){
       path = paths[key]
-      if !key.match(/^_/)
-        if path.caster
+      if(!key.match(/^_/))
+        if(path.caster)
           to_pop += (path.caster.instance == "ObjectID")?path.path + " ":"";
         else
           to_pop += (path.instance == "ObjectID")?path.path + " ":"";
@@ -26,8 +26,10 @@ var utils = {
   getArgs: function(func){
     fnStr = func.toString()
     fnStr = fnStr.replace(/\/\*.+?\*\/|\/\/.*(?=[\n\r])/g, '');
-    result = fnStr.slice(fnStr.indexOf('(')+1, fnStr.indexOf(')'))\
-    .match(/([^\s,]+)/g)
+    result = fnStr.slice(
+        fnStr.indexOf('(')+1,
+        fnStr.indexOf(')')
+      ).match(/([^\s,]+)/g);
     if(result == null)
       result = []
     return result

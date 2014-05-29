@@ -1,14 +1,21 @@
 var express = require("express");
+
+module.exports = function(config, debug){
+if(debug)
+  process.env.DEBUG = 'express:*';
+if(typeof config.cache_age == "undefined")
+config.cache_age = 0;
+
 var app = express();
 //var session = require("express-session");
 //var MongoStore = require("connect-mongo")(session);
 
 //======Set Static Files=====
 app
-  .use( '/css', express.static( "public/css", maxAgesOption) )
-  .use( '/js', express.static( "public/js", maxAgesOption) )
-  .use( '/images', express.static( "public/images", maxAgesOption) )
-  .use( '/font', express.static( "public/font", maxAgesOption) )
+  .use( '/css', express.static( "public/css", config.cache_age) )
+  .use( '/js', express.static( "public/js", config.cache_age) )
+  .use( '/images', express.static( "public/images", config.cache_age) )
+  .use( '/font', express.static( "public/font", config.cache_age) )
 ;
 
 //======Default to handling requests=====
@@ -50,7 +57,10 @@ require("./routes")(app);
 
 //======Error Handler==========
 app
-  .use( express.errorHandler( { dumpException: true,  showStack: true } ) )
+  .use( require("errorhandler")( { dumpException: true,  showStack: true } ) )
 ;
-
-module.exports = app;
+app.listen(config.port, config.hostname, function() {
+  console.log("Listsening at "+config.hostname+":"+config.port);
+});
+return app;
+}

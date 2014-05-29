@@ -1,11 +1,10 @@
-mongoose = require("mongoose");
-utils = require("./utils.coffee")
-fs = require("fs");
+var mongoose = require("mongoose");
+var utils = require("../utils.js")
+var fs = require("fs");
 
-#res.locals.model.models = models
 
-plugins = require("../../plugins");
-boo = true;
+var plugins = require("../plugin");
+var boo = true;
 if(boo){
   checker = function(path){
     fs.readdirSync(path).forEach(function(file){
@@ -13,14 +12,15 @@ if(boo){
       if(stats.isDirectory())
         checker(path+"/"+file);
       else
-        try
-          require path+"/"+file
-        catch e
-          console.log("Model Error["+path+"/"+file+"]: "+e)
+        try{
+          require(path+"/"+file);
+        }catch(e){
+          console.log("Model Error["+path+"/"+file+"]: "+e);
+        }
     });
   }
-  checker(process.cwd()+"/app/models");
-  boo = (false);
+  checker(process.cwd()+"/models");
+  boo = false;
 }
 
 var routeInit = require("./generics/routeinit.js");

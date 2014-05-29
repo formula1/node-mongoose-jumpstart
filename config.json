@@ -1,11 +1,13 @@
 {
   "debug":true,
-  "server":{
-    "port":3000
+  "express":{
+    "hostname":"localhost",
+    "port":3000,
+    "cache_age":604800
   },
   "mongo":{
     "hostname":"localhost",
-    "port":27017,
+    "port":12345,
     "database":"jumpstart",
     "options":{
       "safe":true

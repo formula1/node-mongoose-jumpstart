@@ -32,9 +32,9 @@ var hooks = {};
 
 function getPlugins(){
   var plugins = [];
-  fs.readdirSync(process.cwd() + "/app/plugins").forEach(function(file){
+  fs.readdirSync(__dirname+"/../plugins").forEach(function(file){
       if(!file.match("^index"))
-        plugins.push require(process.cwd() + "/app/plugins/"+file)
+        plugins.push(require(process.cwd() + "/app/plugins/"+file));
   });
   return plugins;
 }
@@ -42,7 +42,7 @@ function getPlugins(){
 module.exports ={
   initiateFilter: function(command){
     console.log("plugins initiating "+command)
-    if(hooks.hasOwnProperty(command)
+    if(hooks.hasOwnProperty(command))
       throw new Error("initiating command: "+command+"twice");
     var plugins = getPlugins();
     var commands = [];
@@ -60,9 +60,8 @@ module.exports ={
         return a.weight-b.weight
       }
     );
-    `
-    console.log("count="+commands.length)
-    hooks[command] = commands
+    console.log("count="+commands.length);
+    hooks[command] = commands;
   },
   emit: function(){
     if(!hooks.hasOwnProperty(arguments[0]))

@@ -8,5 +8,5 @@ module.exports = function(path,req,res){
         console.log(err[i].message);
     }
     res.redirect(path);
-  })
+  });
 }

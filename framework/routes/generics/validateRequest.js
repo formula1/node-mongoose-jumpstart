@@ -1,5 +1,5 @@
 var mongoose = require("mongoose");
-var plugins = require("../../framework.plugin.js");
+var plugins = require("../../plugin.js");
 
 plugins.initiateFilter("validateRequest");
 

@@ -31,7 +31,7 @@ var runPath = function(path, args, next){
   args.utils = utils;
   var $ = cheerio.load(path2dots[path](args));
   if(typeof data._eqs != "undefined"){
-    for(var i=0;i<data._eqs.length){
+    for(var i=0;i<data._eqs.length;i++){
       if(data._eqsfoot.indexOf(data._eqs[i]) != -1)
         $('body').append(
           "<script src=\""+data._eqs[i]+"\" type=\"text/javascript\" ></script>"
