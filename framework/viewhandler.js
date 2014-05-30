@@ -30,15 +30,15 @@ var runPath = function(path, args, next){
   args.include = include;
   args.utils = utils;
   var $ = cheerio.load(path2dots[path](args));
-  if(typeof data._eqs != "undefined"){
-    for(var i=0;i<data._eqs.length;i++){
-      if(data._eqsfoot.indexOf(data._eqs[i]) != -1)
+  if(typeof args._eqs != "undefined"){
+    for(var i=0;i<args._eqs.length;i++){
+      if(data._eqsfoot.indexOf(args._eqs[i]) != -1)
         $('body').append(
-          "<script src=\""+data._eqs[i]+"\" type=\"text/javascript\" ></script>"
+          "<script src=\""+args._eqs[i]+"\" type=\"text/javascript\" ></script>"
         );
       else
         $('head').append(
-          "<script src=\""+data._eqs[i]+"\" type=\"text/javascript\" ></script>"
+          "<script src=\""+args._eqs[i]+"\" type=\"text/javascript\" ></script>"
         );
     }
   }

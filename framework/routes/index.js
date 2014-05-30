@@ -1,6 +1,7 @@
 var mongoose = require("mongoose");
 var utils = require("../utils.js")
 var fs = require("fs");
+var async = require("async");
 
 
 var plugins = require("../plugin");
@@ -30,13 +31,53 @@ var Render = require("./generics/render.js");
 var Redirect = require("./generics/redirect.js");
 
 module.exports =function(app){
-  app.use(routeInit);
-  app.use(setupInfo);
-  app.use(handleValidation);
+  app.use(function(req, res, next){
+    routeInit(req, res, function(err){
+      if(typeof err != "undefined"){
+        console.log(err.message);
+        return next(err);
+      }
+      setupInfo(req, res, function(err){
+        if(typeof err != "undefined"){
+          console.log(err.message);
+          return next(err);
+        }
+        handleValidation(req, res, function(err, valid, path){
+          if(typeof err != "undefined")
+            valid = false
+          if(!valid)
+            return res.render("403")
+          next();
+        });
+      });
+    });
+  });
 
-  app.get("/", function(req,res,next){
-    var models = mongoose.modelNames();
-    next();
+  app.get(/\/?/, function(req,res,next){
+    console.log("index");
+    var total = 0;
+    var modelStats = [];
+    async.each(
+      mongoose.modelNames(),
+      function(modelname, next){
+        var model = mongoose.model(modename);
+        model.count({}, function(count){
+          modelStats.push({
+            modelName:modelname,
+            doccount:doccount,
+            createcount:0,
+            requestcount:0,
+            updatecount:0,
+            deletecount:0
+          });
+          total += count;
+        });
+      },function(){
+        req.mvc.modelStats = modelStats;
+        req.mvc.grandtotal = total;
+        Render(req, res, next,"dot/main/index");
+      }
+    );
   });
   app.get("/:model/:instance/", function(req,res,next){
     require("routepeices/view.js")(req, res, function(err){

@@ -47,6 +47,7 @@ app
 var viewHandler = require("./viewhandler.js");
 app
   .set('views', __dirname+"/../views")
+  .set('view engine', 'dot')
   .engine("dot", viewHandler)
   .engine("html", viewHandler)
 ;

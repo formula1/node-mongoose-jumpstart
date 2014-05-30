@@ -1,5 +1,9 @@
+mongoose = require("mongoose");
+
 module.exports = function(req, res, next){
   req.mvc = {};
+  if(!req.params.hasOwnProperty("model"))
+    return next();
   req.mvc.model = mongoose.model(req.params.model);
   if(req.params.hasOwnProperty("method"))
     req.mvc.method = req.params.method;

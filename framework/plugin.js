@@ -29,7 +29,7 @@ but rather its compiled when called.
 */
 var fs = require('fs');
 var hooks = {};
-
+var async = require("async");
 function getPlugins(){
   var plugins = [];
   fs.readdirSync(__dirname+"/../plugins").forEach(function(file){
@@ -65,48 +65,35 @@ module.exports ={
   },
   emit: function(){
     if(!hooks.hasOwnProperty(arguments[0]))
-      return arguments[arguments.length-1](new Error("This command hasn't been initiated"));
-    var the_args = Array.slice(arguments)
-    var command = arguments.splice(0,1);
-    var callback = arguments.splice(this.arguments.length-1,1);
+      return arguments[arguments.length-1]([new Error("This command hasn't been initiated")]);
+    the_args = Array.prototype.slice.call(arguments);
+    var command = the_args.splice(0,1);
+    var callback = the_args.splice(the_args.length-1,1)[0];
     var err_arr = [];
-    var returned = [];
+    var ret_arr = [];
     var counter = 0;
-
-    arguments.push(function(){
-      var args = Array.slice(arguments);
-      var err = args.splice(0,1);
+    the_args.push(function(){
+      var sub_args = Array.prototype.slice.call(arguments);
+      var err = sub_args.splice(0,1);
       if(typeof err != "undefined")
         err_arr.push(err)
-      if(arguments.length > 0)
-        returned.push(this.arguments)
-      counter++
-      process.nextTick(function(){
-        doit();
-      });
+      if(sub_args.length > 0)
+        ret_arr.concat(sub_args)
     });
-
-    (function doit(){
-      if(counter == hooks[command].length){
+    async.eachSeries(
+      hooks[command],
+      function(hook){
+        hook.apply(void(0), the_args)
+      },
+      function(){
         if(err_arr.length == 0)
           err_arr = void(0);
-        if(returned.length == 0)
-          returned = void(0);
         process.nextTick(function(){
-          callback(err_arr, returned);
-        });
-        return;
-      }
-      try{
-        hooks[command][counter].apply(void(0), the_args);
-      }catch(e){
-        err_arr.push(e);
-        counter++;
-        process.nextTick(function(){
-          doit();
+          console.log(JSON.stringify(callback));
+          callback(err_arr, ret_arr);
         });
       }
-    })();
+    );
 
   }
 }

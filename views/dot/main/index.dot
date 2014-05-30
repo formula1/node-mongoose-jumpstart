@@ -1,7 +1,7 @@
 <h1>HomePage</h1>
 
-There are a total of {{=it.modelStats.length}} Model Types here
-There are a total of {{=it.grandtotal}} documents stored here
+There are a total of {{=it.mvc.modelStats.length}} Model Types here
+There are a total of {{=it.mvc.grandtotal}} documents stored here
 
 <h3>Popular Items</h3>
   <p>As Items are Requested we store the number of times it was requested. The
@@ -25,14 +25,14 @@ There are a total of {{=it.grandtotal}} documents stored here
     </tr>
   </thead>
   <tbody>
-  {{~ it.modelStats :value:key }}
+  {{~ it.mvc.modelStats :value:key }}
     <tr>
-      <td>{{=it.modelStats.modelName}}</td>
-      <td>{{=it.modelStats.doccount}}</td>
-      <td>{{=it.modelStats.createcount}}</td>
-      <td>{{=it.modelStats.requestcount}}</td>
-      <td>{{=it.modelStats.updatecount}}</td>
-      <td>{{=it.modelStats.deletecount}}</td>
+      <td>{{=value.modelName}}</td>
+      <td>{{=value.doccount}}</td>
+      <td>{{=value.createcount}}</td>
+      <td>{{=value.requestcount}}</td>
+      <td>{{=value.updatecount}}</td>
+      <td>{{=value.deletecount}}</td>
     </tr>
   {{~}}
   <tbody>

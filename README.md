@@ -12,6 +12,21 @@ Automates routing and property rendering for Mongo Databases.
 - cheerio
 - an html encoder (currently node-html-encoder)
 
+## To Test
+Install Node - http://nodejs.org/
+Install Mongodb - http://www.mongodb.org/downloads
+```
+$ git clone
+```
+Edit the config.json appropiately
+> the most important part here is the port numbers for local use
+
+```
+$ npm install
+$ mongod --dbpath your_db_path --port your_db_port_number
+$ node run
+```
+
 
 ## Project Goals
 ### 1) Reduce Development Time for database oriented websites
@@ -30,12 +45,16 @@ Automates routing and property rendering for Mongo Databases.
 > Many NPM modules become bloated by the dependencies on other modules. This isn't meant to be a 10 mb file, but rather a small one.
 
 ## Current Condition
-The Current Condition of this project is untested. I took a lot of my
-coffeescript and blade.ui code and rewrote it in javascript and doT. That being
-said, there
+- Startup Compiles and Runs fine
+- Index Compiles and Runs Fine
 
 ## Next Steps
 Make sure everything is working properly
+
+## Finished Steps
+- Tranfered most of the code from coffeescript and blade to javascript and dot
+- Implemented Cluster
+
 
 ## Working API
 nothing
@@ -69,5 +88,5 @@ nothing
 - Finishing/Exiting Tour
 
 ### 5) Scalability Testing
-- Cluster support
+- ~~Cluster support~~
 - user to database restriction until database synchronization finishes
