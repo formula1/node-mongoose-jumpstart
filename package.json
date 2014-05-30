@@ -21,6 +21,7 @@
     "connect-flash":"latest",
 
     "mongoose":"latest",
+    "mpath":"latest",
 
     "dot":"latest",
     "cheerio":"latest",

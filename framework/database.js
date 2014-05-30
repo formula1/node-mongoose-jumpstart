@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
 
-module.exports = function(config,debug){
+module.exports = function(config,debug,next){
 mongoose.set("debug", debug)
 var url = "";
 if(typeof config.hostname != "string")
@@ -34,9 +34,30 @@ db.on( "error", function(error){
 });
 db.on("connected",function(){
   console.log("SUCCESSFULLY connected to: " + url);
+  if(typeof next != "undefined")
+    next(db);
 });
 db.on("disconnected", function(){
   console.log("DISCONNECTED from the database: " + url);
 });
+
+var fs = require("fs");
+
+checker = function(path){
+  fs.readdirSync(path).forEach(function(file){
+    stats = fs.statSync(path+"/"+file);
+    if(stats.isDirectory())
+      checker(path+"/"+file);
+    else
+      try{
+        require(path+"/"+file);
+      }catch(e){
+        console.log("Model Error["+path+"/"+file+"]: "+e);
+      }
+  });
+}
+checker(__dirname+"/../models");
+
+
 return db;
 }

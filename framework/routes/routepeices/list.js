@@ -18,13 +18,14 @@ function req_parse_params(model, params, next){
       err.push(e);
       //regex is not properly formatted
     }
-  if params.hasOwnProperty("strict")
+  if(params.hasOwnProperty("strict")){
     try{
-      toStrict = JSON.parse value
+      toStrict = JSON.parse(value);
     }catch(e){
       err.push(e);
       //The Strict Parameter is not properly formatted
     }
+  }
   if(params.hasOwnProperty("sort"))
     if(paths.hasOwnProperty(params["sort"]))
       to_return._sort = params["sort"];
