@@ -1,10 +1,17 @@
-<ul class="sortable">
-  {{~it.data :value:key}}
+<ul>
+  {{
+    console.log(JSON.stringify(it.path));
+    var psuedopath = {
+      instance:it.path.caster.instance,
+      options:it.path.caster.options
+    };
+  }}
+  {{~ it.value :value:key}}
     <li>
-      {{=it.utils.include(
-        "/views/dot/path-renderings/view/"+it.path.caster.instance+".dot",
-        {utils:it.utils,data:value}
-      )}}
+      {{
+        psuedopath.path = it.path.path+"."+key;
+      }}
+      {{=it.mongooseUI(psuedopath,value)}}
     </li>
   {{~}}
 </ul>

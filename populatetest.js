@@ -73,6 +73,7 @@ function populationCreation(db){
           //done
           mongoose.disconnect();
           console.log("done");
+          process.exit(1);
         }
       );
     }

@@ -1,5 +1,6 @@
-{{? data }}
-true
-{{?? else }}
-false
-{??}
+{{ if(typeof it.value == "undefined") }}
+Not Set
+{{ else if(it.value === true) }}
+True
+{{ else }}
+False

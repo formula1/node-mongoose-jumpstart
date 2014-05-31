@@ -8,6 +8,7 @@
   },
   "dependencies":{
     "async":"latest",
+    "underscore":"latest",
 
     "express": ">=4.0",
     "body-parser":"latest",

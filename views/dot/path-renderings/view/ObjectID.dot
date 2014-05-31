@@ -1,1 +1,1 @@
-<a href="{{=it.utils.object2URL(it.data)}}" >{{=it.data._id}}</a>
+<a href="{{=it.path.ref+"/"+it.value}}" >{{=it.value}}</a>

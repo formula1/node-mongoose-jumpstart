@@ -1,12 +1,12 @@
-{{
-/*
-A Nested Path
-
-*/
-}}
 <div>
-<h3>{{=it.path.path}}
-{{ for(i in it.path.subpaths){ }}
-  {{=it.utils.mongooseUI(it.path.subpath, it.data[it.path.subpath.path])}}
-{{ } }}
+<h3>{{=it.path.path}}</h3>
+{{ for(var i in it.path.subpaths){
+}}
+{{=it.mongooseUI(
+      it.path.subpaths[i],
+      it.mpath.get(it.path.subpaths[i].path,it.value)
+    )}}
+{{
+}
+}}
 </div>

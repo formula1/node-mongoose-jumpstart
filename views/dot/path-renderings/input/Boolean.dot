@@ -8,7 +8,8 @@
     <option
     {{? it.data == value }}
        selected="selected"
-    {{??}}
+    {{?}}
     value="{{=value}}">{{=value }}</option>
+    {{??}}
   {{~}}
 </select>

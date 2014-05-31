@@ -12,6 +12,7 @@ if (cluster.isMaster) {
   });
 } else {
   var config = require("./config.json");
+  global.__root = __dirname;
 
   if(typeof config.debug != "boolean")
     config.debug = false;

@@ -1,6 +1,4 @@
-<h1>{{=it.mvc.modelName}}</h1>
-
-There are a total of {{=it.grandtotal}} documents stored here
+<h1>{{=it.mvc.modelStats.modelName}}</h1>
 
 <div>
   <h2>User Oriented</h2>
@@ -12,19 +10,26 @@ There are a total of {{=it.grandtotal}} documents stored here
   <h3>Unique Items</h3>
     <p>When a new Object is created or Updated, we check tags to see how many tags
     it has similar to other objects. The Less it has, the more unique</p>
+  <h3>Random Items</h3>
+    <p>Visibility is hard to get, so to make sure everyone has somewhat of an
+    equal chance, we add randomized documents to the front page</p>
 </div>
 <div>
   <h2>Statistics</h2>
   <ul>
-    <li>{{=it.modelStats.modelName}}</li>
-    <li>{{=it.modelStats.doccount}}</li>
-    <li>{{=it.modelStats.createcount}}</li>
-    <li>{{=it.modelStats.requestcount}}</li>
-    <li>{{=it.modelStats.updatecount}}</li>
-    <li>{{=it.modelStats.deletecount}}</li>
+    <li>{{=it.mvc.modelStats.modelName}}</li>
+    <li>{{=it.mvc.modelStats.doccount}}</li>
+    <li>{{=it.mvc.modelStats.createcount}}</li>
+    <li>{{=it.mvc.modelStats.requestcount}}</li>
+    <li>{{=it.mvc.modelStats.updatecount}}</li>
+    <li>{{=it.mvc.modelStats.deletecount}}</li>
   </ul>
 </div>
 <div>
   <h2>ID Ordered List</h2>
-  {{=it.utils.include("/views/dot/path-renderings/table.dot", it)}}
+{{? it.instances == 0}}
+  <h3>There are none Available here</h3>
+{{??}}
+  {{=it.include(__root+"/views/dot/path-renderings/table.dot", it)}}
+{{?}}
 </div>

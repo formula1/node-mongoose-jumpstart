@@ -4,12 +4,16 @@
   </head>
   <body>
     <div class="wrapper">
+      {{
+        for(var i in it.utils)
+          console.log(i);
+      }}
       <div id="header"></div>
       <div id="main">
-        {{=it.utils.include("/views/dot/main/"+it.rprop.content+".dot", it)}}
+        {{=it.include(it.content, it)}}
       </div>
       <div id=sidebar>
-        {{=it.utils.include("/views/dot/main/sidebar.dot", it)}}
+        {{=it.include(__root+"/views/dot/main/sidebar.dot", it)}}
       </div>
       <div id="footer"></div>
     </div>

@@ -1,5 +1,9 @@
-{{var unique = it.utils.getUnique();}}
-{{ it.utils.enqueueScript("/js/jquery.js"); }}
+{{
+for(var i in it.utils){
+console.log(i);
+}
+var unique = it.utils.getUnique();}}
+{{ it.enqueScript("/js/jquery.js"); }}
 <script type="text/javascript">
     jQuery(function() {
       $( "#{{=unique}}" ).accordion({heightStyle: "content"});
@@ -19,9 +23,9 @@
           <strong>{{=arg}}</strong>
           {{? arg.match(/_$/) }}
             <input type="password" name="{{=arg}}" />
-          {{?? else }}
-            <input type="text" name="{{=arg}}" />
           {{??}}
+            <input type="text" name="{{=arg}}" />
+          {{?}}
         </div>
       {{~}}
       <button type="submit">

@@ -17,12 +17,16 @@ For now create an accordian group
   <h3>Items</h3>
   <div>
     <ul class="sortable">
+      {{
+        var psuedopath = {
+          instance:it.path.caster.instance,
+          path:it.path.path+"[]"
+          options:it.path.caster.options
+        }
+      }}
       {{~it.data :value:key}}
         <li>
-          {{=it.utils.include(
-            "/views/dot/path-renderings/view/"+it.path.caster.instance+".dot",
-            {utils:it.utils,it.data[key]}
-          )}}
+          {{=it.mongooseUI(psuedopath,value)}}
           <input type="hidden" name="{{=it.path.path}}[]" value="{{=value}}" />
           <button>Remove</button>
         </li>
@@ -31,9 +35,7 @@ For now create an accordian group
   </div>
   <h3>Add</h3>
   <div>
-    {{=it.utils.include(
-      "/views/dot/path-renderings/view/"+it.path.caster.instance+".dot"
-      ,{utils:it.utils,path:{path:"add_to"+path.path},value:void(0)}
-    )}}
+    {{=it.mongooseUI(psuedopath,void(0), true)}}
+    <button>Add</button>
   </div>
 </div>

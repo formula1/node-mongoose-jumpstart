@@ -3,12 +3,25 @@ var fs = require("fs");
 var path2dots = {};
 var cheerio = require("cheerio");
 var utils = require("./utils");
+var _ = require("underscore");
+var mpath = require("mpath");
 
-var include = function(path, data){
-  return doT.template(fs.readFileSync(process.cwd() + "/"+path))(data);
+
+function cloner(args){
+  for(var i in args)
+    this[i] = args[i];
 }
 
-var enqueScript = function(scriptpath, footer){
+cloner.prototype.include = function(path, data){
+  return doT.template(fs.readFileSync(path))(data);
+};
+
+cloner.prototype.utils = utils;
+cloner.prototype._ = _;
+cloner.prototype.mpath = mpath;
+
+
+cloner.prototype.enqueScript = function(scriptpath, footer){
   /*
     the most important things for the scripts is...
     1) We dont repeat scripts
@@ -23,33 +36,48 @@ var enqueScript = function(scriptpath, footer){
   this._eqs.push(scriptpath);
   if(typeof footer != "undefined" && footer)
     this._eqsfoot.push(scriptpath);
-}
+};
+
+cloner.prototype.mongooseUI = function(path, value, isInput){
+  if(isInput == "input" || isInput === true)
+    isInput = "input";
+  else
+    isInput = "view";
+  var type;
+  if(path.hasOwnProperty("caster"))
+    type = "Array";
+  else
+    type = path.instance;
+
+  if(typeof type == "undefined")
+    throw new Error(JSON.stringify(path));
+
+  return doT.template(fs.readFileSync(
+      __root+"/views/dot/path-renderings/"
+      +isInput+"/"+type+".dot"
+  ))(new cloner({path:path,value:value}));
+
+};
+
 
 var runPath = function(path, args, next){
-  args.enqueScript = enqueScript;
-  args.include = include;
-  args.utils = utils;
-  var $ = cheerio.load(path2dots[path](args));
-  if(typeof args._eqs != "undefined"){
-    for(var i=0;i<args._eqs.length;i++){
-      if(data._eqsfoot.indexOf(args._eqs[i]) != -1)
+  var cloned = new cloner(args);
+  cloned.content = path;
+  var content = doT.template(fs.readFileSync(__dirname+"/../views/dot/layout.dot"))(cloned);
+  var $ = cheerio.load(content);
+  if(cloned.hasOwnProperty("_eqs")){
+    for(var i=0;i<cloned._eqs.length;i++){
+      if(cloned._eqsfoot && cloned._eqsfoot.indexOf(cloned._eqs[i]) != -1)
         $('body').append(
-          "<script src=\""+args._eqs[i]+"\" type=\"text/javascript\" ></script>"
+          "<script src=\""+cloned._eqs[i]+"\" type=\"text/javascript\" ></script>"
         );
       else
         $('head').append(
-          "<script src=\""+args._eqs[i]+"\" type=\"text/javascript\" ></script>"
+          "<script src=\""+cloned._eqs[i]+"\" type=\"text/javascript\" ></script>"
         );
     }
   }
   next(void(0),$.html());
-}
+};
 
-module.exports = function(path,args,next){
-  if(!path2dots.hasOwnProperty(path))
-    return fs.readFile(path, function read(err, data) {
-      path2dots[path] = doT.template(data);
-      runPath(path,args,next);
-    });
-  runPath(path,args,next);
-}
+module.exports = runPath;

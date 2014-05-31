@@ -21,10 +21,6 @@ var schema = new mongoose.Schema({
       required: true
     }
   },
-  Angry: {
-    type:Boolean,
-    default:true
-  },
   Cats: [{type: mongoose.Schema.Types.ObjectId, ref:"Cat"}]
 });
 
