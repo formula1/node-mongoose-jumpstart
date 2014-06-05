@@ -1,0 +1,1 @@
+<img src="{{=it.utils.object2URL(it.instance)+path.path+"/!/HTTPRequest"}}" />

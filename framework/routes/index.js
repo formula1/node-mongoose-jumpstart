@@ -36,34 +36,7 @@ function preAmble(success){
 module.exports =function(app){
   app.get(/^\/?$/, preAmble(function(req,res,next){
     console.log("index");
-    var total = 0;
-    var modelStats = [];
-    async.each(
-      mongoose.modelNames(),
-      function(modelname, next){
-        var model = mongoose.model(modelname);
-        model.count({}, function(err, count){
-          console.log(JSON.stringify(err));
-          console.log(JSON.stringify(count));
-          var more = Math.floor(count*Math.random());
-
-          modelStats.push({
-            modelName:modelname,
-            doccount:count,
-            createcount:more+count,
-            requestcount:(more+count)*Math.floor(1+Math.random()*3),
-            updatecount:Math.floor((more+count)*Math.random()*0.25),
-            deletecount:more
-          });
-          total += count;
-          next();
-        });
-      },function(){
-        req.mvc.modelStats = modelStats;
-        req.mvc.grandtotal = total;
         Render(req, res, next,"dot/main/index");
-      }
-    );
   }));
   app.post("/:model/!/:method", preAmble(function(req, res, next){
     if(req.mvc.method == "add")
@@ -104,8 +77,7 @@ module.exports =function(app){
       return require("./routepeices/edit.js")(req,res, function(err, data){
         if(err)
           console.log(err);
-        res.locals.model.instance = data;
-        Render("models/page-renderings/instance",req,res);
+        Redirect(utils.object2URL(req.mvc.instance));
       });
     }
     if(method == "delete"){
@@ -126,13 +98,20 @@ module.exports =function(app){
     console.log("can't find it");
     next();
   }));
+  app.get("/:model/:instance/:subpath/!/:method", preAmble(function(req,res,next){
+    return require("./routepeices/method.js")(req,res, function(err, data){
+      if(err)
+        console.log(err);
+      Redirect(utils.object2URL(req.mvc.instance)+req.mvc.subpath,req,res);
+    });
+  }));
   app.get("/:model/:instance/:subpath", preAmble(function(req,res,next){
     require("./routepeices/subpath.js")(req, res, function(err){
       if(err){
         console.log(err.message);
         return Redirect(utils.object2URL(model), req, res);
       }
-      Render("models/page-renderings/instance",req,res);
+      Render("models/path-renderings/"+req.mvc.method,req,res);
     });
   }));
   app.get("/:model/:instance", preAmble(function(req,res,next){
@@ -141,7 +120,7 @@ module.exports =function(app){
         console.log(err.message);
         return Redirect(utils.object2URL(model), req, res);
       }
-      return Render("models/page-renderings/instance",req,res);
+      Render(req,res, next, "dot/main/view");
     });
   }));
   app.get("/:model", preAmble(function(req, res, next){

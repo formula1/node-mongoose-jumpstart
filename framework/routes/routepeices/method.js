@@ -11,7 +11,9 @@ function getArgs(func){
 
 module.exports = function(req,res,next){
   if(typeof req.mvc.instance == "undefined")
-    ref = req.mvc.model
+    ref = req.mvc.model;
+  else if(req.mvc.subpath)
+    ref = req.mvc.instance[req.mvc.subpath];
   else
     ref = req.mvc.instance;
   method =  req.mvc.method;
@@ -29,9 +31,9 @@ module.exports = function(req,res,next){
         , argvalues
       );
   if(argsnames[1].match(/res|response/))
-    argvalues.unshift res
+    argvalues.unshift(res);
   if(argsnames[0].match(/req|request/))
-    argvalues.unshift req
+    argvalues.unshift(req);
   if(argsnames[argsnames.length-1].match(/next|cb|callback/))
     argvalues.push(function(errors){
       if(errors)

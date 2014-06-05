@@ -23,6 +23,7 @@
 
     "mongoose":"latest",
     "mpath":"latest",
+    "node-mime":"latest",
 
     "dot":"latest",
     "cheerio":"latest",

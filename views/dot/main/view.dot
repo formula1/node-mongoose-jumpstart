@@ -1,40 +1,42 @@
-<h1>{{=it.data.model.modelName}}</h1>
+<h1>{{=it.mvc.model.modelName}}</h1>
 {{
   var nestedPaths = {};
+  var model = it.mvc.model;
+  var url = it.utils.object2URL(it.mvc.instance);
 
   for(var i in model.schema.paths){
-}}
-{{ if(i.match(/^_|_$/)) continue; }}
-{{? i.match(/.*\..*/) }}
-{{
-  var nested = i.split(".")[0]
-  if(model.schema.nested[nested])
-    if(nested.hasOwnProperty(nested)){
-      nestedPaths[nested] = {};
-      nestedPaths[nested].instance = "Nested";
-      nestedPaths[nested].path = nested;
-      for(var j in model.schema.paths){
-        if(i.match("^"+nested+"."))
-          nestedPaths[nested][j.split(".")[1]] = model.schema.paths[j];
-      }
+    if(i.match(/^_|_$/))
+      continue;
+    if(i.indexOf(".") == -1)
+      currentpath = model.schema.paths[i];
+    else{
+      var nested = i.split(".")[0];
+      if(model.schema.nested.hasOwnProperty(nested))
+        if(!nestedPaths.hasOwnProperty(nested)){
+          nestedPaths[nested] = {};
+          nestedPaths[nested].instance = "Nested";
+          nestedPaths[nested].path = nested;
+          nestedPaths[nested].subpaths = {};
+          for(var j in model.schema.paths){
+            if(j.match("^"+nested+".")){
+              nestedPaths[nested].subpaths[j.substring(j.indexOf("."))] = model.schema.paths[j];
+            }
+          }
+          currentpath = nestedPaths[nested];
+        }else
+          continue;
+      else
+        currentpath = model.schema.paths[i];
     }
-  currentpath = nestedPaths[nested];
 }}
-{{?? else }}
-  currentpath = model.schema.paths[i];
-{{??}}
 <div>
   <strong>{{=currentpath.path}}:</strong>
-  {{it.utils.mongooseUI(currentpath, it.mvc.instance[i])}}
-</div>
-<div>
-  <button type="submit">Save</button>
-  <a href="{{=url}}"><button type="button">Cancel</button></a>
+  {{=it.mongooseUI(currentpath, it.mvc.instance[currentpath.path])}}
 </div>
 {{
   }
 }}
 <div>
-  <a href="{{=url}}update"><button type="button">Update</button></a>
-  <a href="{{=url}}delete"><button type="button">Delete</button></a>
+  <a href="{{=url}}/update"><button type="button">Update</button></a>
+  <a href="{{=url}}/delete"><button type="button">Delete</button></a>
 </div>

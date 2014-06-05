@@ -114,6 +114,28 @@ function populationCreation(db){
         return text;
       case "Date":
         return new Date();
+      case "Sound":
+        var num_sec = 10;
+        var samplerate = 44100;
+        var bitspersample = 8;
+        var num_channels = 1;
+        buffed = new Buffer(0);
+        buffed.write("RIFF",0,8*4,"utf8");
+        buffed.writeUInt32BE(44+num_sec*samplerate);
+        buffed.write("WAVE");
+        buffed.write("fmt ",12,8*4,"utf8");
+        buffed.writeUINT16BE(16);
+        buffed.writeUINT16BE(1);
+        buffed.writeUINT16BE(num_channels);
+        buffed.writeUINT32BE(samplerate);
+        buffed.writeUINT32BE((samplerate * bitspersample * num_channels) / 8.);
+
+        var header = "RIFF";
+        var bitsize = 8;
+        var num_sex = 10;
+        var samplerate = 44100;
+        totalbytes = samplerate*num_sex
+        for(var)
       case "ObjectID":
         or.push({instance:this,path:path});
         return;

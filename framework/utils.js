@@ -2,10 +2,19 @@ var fs = require("fs");
 var mongoose = require("mongoose");
 var Encoder = require('node-html-encoder').Encoder;
 
+var he = new Encoder("entity");
 
 var utils = {
   htmlEncode: function(text){
-
+    return he.htmlEncode(text);
+  },
+  getModel: function(){
+    if(object instanceof mongoose.Document)
+      return mongoose.model(object.constructor.modelName)
+    if(object.hasOwnProperty("modelName"))
+      return object
+    else
+      return
   },
   getUnique: function(){
     var text = "";

@@ -1,6 +1,5 @@
 <ul>
   {{
-    console.log(JSON.stringify(it.path));
     var psuedopath = {
       instance:it.path.caster.instance,
       options:it.path.caster.options

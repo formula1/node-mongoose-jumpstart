@@ -1,0 +1,5 @@
+<sound
+  controls
+  type="{{=it.value.mimetype}}"
+  src="{{=it.utils.object2URL(it.instance)+it.path.path+"/!/HTTPRequest"}}"
+/>

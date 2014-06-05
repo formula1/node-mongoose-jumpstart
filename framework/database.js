@@ -28,6 +28,8 @@ if(typeof config.options != "undefined")
 else
   mongoose.connect(url);
 var db = mongoose.connection;
+var fs = require("fs");
+
 
 db.on( "error", function(error){
   console.log("ERROR connecting to: " + url)
@@ -35,7 +37,7 @@ db.on( "error", function(error){
 db.on("connected",function(){
   console.log("SUCCESSFULLY connected to: " + url);
   if(typeof next != "undefined")
-    next(db);
+    next(mongoose);
 });
 db.on("disconnected", function(){
   console.log("DISCONNECTED from the database: " + url);
@@ -58,6 +60,9 @@ checker = function(path){
 }
 checker(__dirname+"/../models");
 
+fs.readdirSync(__dirname+"/../SchemaTypes").forEach(function(file){
+  require(__dirname+"/../SchemaTypes"+"/"+file)(mongoose);
+});
 
 return db;
 }

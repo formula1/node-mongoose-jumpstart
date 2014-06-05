@@ -3,13 +3,13 @@ var mongoose = require("mongoose");
 module.exports = function(req, res, next){
   var model = mongoose.model(req.params.model);
   var find = {};
-  find[docslug] = decodeURIComponent(req.params.instance);
+  find._id = decodeURIComponent(req.params.instance);
   var paths = model.schema.paths;
   var to_pop = "";
   for(var key in paths){
     path = paths[key]
-    if !key.match(/^_/)
-      if path.caster
+    if(!key.match(/^_/))
+      if(path.hasOwnProperty("caster"))
         to_pop += (path.caster.instance == "ObjectID")?path.path + " ":"";
       else
         to_pop += (path.instance == "ObjectID")?path.path + " ":"";
@@ -22,8 +22,7 @@ module.exports = function(req, res, next){
     if(!doc){
       return next(new Error("doc does not exist"));
     }
-    res.locals.model.model = model
-    res.locals.model.instance = doc
+    req.mvc.instance = doc
     next();
   });
 }
