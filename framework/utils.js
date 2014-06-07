@@ -50,12 +50,15 @@ var utils = {
     return result;
   },
   object2URL: function(object){
+    if(typeof object == "undefined")
+      return false;
     if(object instanceof mongoose.Document){
       model = mongoose.model(object.constructor.modelName);
       return "/"+model.modelName+"/"+object._id;
     }
-    else if(object.hasOwnProperty("modelName"))
+    else if("modelName" in object)
       return "/"+object.modelName;
+    return false;
   }
 };
 

@@ -38,7 +38,7 @@ cloner.prototype.enqueScript = function(scriptpath, footer){
     this._eqsfoot.push(scriptpath);
 };
 
-cloner.prototype.mongooseUI = function(path, value, isInput){
+cloner.prototype.mongooseUI = function(path, instance, isInput){
   if(isInput == "input" || isInput === true)
     isInput = "input";
   else
@@ -52,10 +52,14 @@ cloner.prototype.mongooseUI = function(path, value, isInput){
   if(typeof type == "undefined")
     throw new Error(JSON.stringify(path));
 
+  console.log()
+  var value = (typeof instance != "undefined")?mpath.get(path.path,instance):void(0);
+
+
   return doT.template(fs.readFileSync(
       __root+"/views/dot/path-renderings/"
       +isInput+"/"+type+".dot"
-  ))(new cloner({path:path,value:value}));
+  ))(new cloner({path:path,value:value,instance:instance}));
 
 };
 

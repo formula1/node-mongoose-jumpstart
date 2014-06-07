@@ -1,5 +1,11 @@
+{{  if(typeof it.value != "undefined"){ }}
+{{
+  var url = it.utils.object2URL(it.instance);
+  url += "/"+it.path.path;
+}}
 <sound
   controls
   type="{{=it.value.mimetype}}"
-  src="{{=it.utils.object2URL(it.instance)+it.path.path+"/!/HTTPRequest"}}"
+  src="{{=url}}/!/HTTPRequest"
 />
+{{ } }}

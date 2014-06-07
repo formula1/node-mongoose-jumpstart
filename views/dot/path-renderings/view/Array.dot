@@ -10,7 +10,7 @@
       {{
         psuedopath.path = it.path.path+"."+key;
       }}
-      {{=it.mongooseUI(psuedopath,value)}}
+      {{=it.mongooseUI(psuedopath,it.instance)}}
     </li>
   {{~}}
 </ul>

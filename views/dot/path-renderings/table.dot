@@ -58,14 +58,14 @@
           continue;
         if(!path.match(/.*\..*/)){
           }}
-          <td>{{=it.mongooseUI(model.schema.paths[path], instance[path])}}</td>
+          <td>{{=it.mongooseUI(model.schema.paths[path], instance)}}</td>
           {{
           continue;
         }
         var nested = path.split(".")[0];
         if(!model.schema.nested.hasOwnProperty(nested)){
           }}
-          <td>{{=it.mongooseUI(model.schema.paths[path],instance[path])}}</td>
+          <td>{{=it.mongooseUI(model.schema.paths[path],instance)}}</td>
           {{
           continue;
         }
@@ -73,7 +73,7 @@
           continue;
         nestedFinished.push(nested);
         }}
-        <td>{{=it.mongooseUI(nestedPaths[nested],instance[nested])}}</td>
+        <td>{{=it.mongooseUI(nestedPaths[nested],instance)}}</td>
         {{
       }
       }}

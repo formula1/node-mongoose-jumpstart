@@ -16,10 +16,11 @@ module.exports = function(mongoose, supported_mimes, name){
 	 */
 
 	function newSchema(key, options) {
-		SchemaType.call(this, key, options, 'MimeType');
+		SchemaType.call(this, key, options, name);
 		this.get(function(val, self){
-			if(val === null){
-				return null;
+		//throw new Error(arguments.length)
+			if(typeof val == "undefined" || val === null){
+				return void(0);
 			} else {
 				return new Mime64(val);
 			}
@@ -62,40 +63,44 @@ module.exports = function(mongoose, supported_mimes, name){
 
 		*/
 		try{
-			if(typeof value == "string")
-				if(fs.existsSync(value)){
+			if(typeof value == "string"){
+				if(value.length < 100 && fs.existsSync(value)){
 					var stats = fs.statSync(value);
 					if(stats.isDirectory())
-						throw new CastError("Mime64: Cannot store a directory into MongoDB")
+						throw new CastError("Mime64: Cannot store a directory into MongoDB",value,this.path)
 					var mimetype = mime.lookup(value);
 					if(!mimetype.match(supported_mimes))
 						throw new CastError(
 							"Unsupported mimetype.\n"+
 							"If you would like to support the mimetype: "+mimetype+","+
 							" please add the mimetype to the second argument when you are defining the schema"
+							,value,this.path
 						);
 					var header = "data:"+mimetype+";base64, ";
 					var size = stats.size;
 					if(size > 3000000-header.length*8)
-						throw new CastError("Can't store a file greater than "+size+" of mimetype "+mimetype)
+						throw new CastError("Can't store a file greater than "+size+" of mimetype "+mimetype,value,this.path)
 					var tmp = new Buffer(0);
 					fs.readSync(value, tmp, 0, size, 0);
 					return header+tmp.toString("base64");
 				}
+			}
 			var ob = new Mime64(value);
 		}catch(e){
-			throw new CastError(e.message);
+			console.log("cast err"+e.message);
+			throw new CastError(e.message,value,this.path);
 		}
 		if(!ob.mimetype.match(supported_mimes)){
 			throw new CastError(
 				"Unsupported mimetype.\n"+
-				"If you would like to support the mimetype: "+mimetype+","+
+				"If you would like to support the mimetype: "+ob.mimetype+","+
 				" please add the mimetype to the second argument when you are defining the schema"
+				,value,this.path
 			);
 		}
-
-		return ob.toSource();
-
+		if(ob.size > 3000000-ob.mimetype.length*8)
+			throw new CastError("Can't store a file greater than "+(3000000-ob.mimetype.length*8)+" of mimetype "+ob.mimetype,value,this.path)
+		return ob.asSource();
 	};
 
 	/*!

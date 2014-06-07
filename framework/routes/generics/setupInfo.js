@@ -1,5 +1,7 @@
 var mongoose = require("mongoose");
 var async = require("async");
+var mpath = require("mpath");
+var utils = require("../../utils");
 module.exports = function(req, res, next){
   var mns = mongoose.modelNames();
   req.mvc = {};
@@ -35,7 +37,7 @@ module.exports = function(req, res, next){
     if(req.params.hasOwnProperty("subpath")){
       if(!req.mvc.model.schema.paths.hasOwnProperty(req.params.subpath))
         return next(new Error("Nonexistant Subpath"));
-      if(req.params.subpath.match(/^_/))
+      if(req.params.subpath.match(/^_|.*\._.*/))
         return next(new Error("Hidden Subpath"));
     }
     return req.mvc.model.findOne({_id:req.params.instance}, function(err, doc){
@@ -45,7 +47,7 @@ module.exports = function(req, res, next){
           return next(new Error("this doc does not exist"));
         req.mvc.instance = doc;
         if(req.params.hasOwnProperty("subpath")){
-          handleSubpath(req, res, next);
+          return handleSubpath(req, res, next);
         }else if(req.params.hasOwnProperty("method"))
           return handleMethod(req, req.mvc.model.schema,next);
         req.mvc.method = "view";
@@ -61,9 +63,9 @@ module.exports = function(req, res, next){
 };
 
 function handleSubpath(req,res, next){
-  req.mvc.subpath = doc[req.params.subpath];
+  req.mvc.subpath = mpath.get(req.params.subpath,req.mvc.instance);
   if(req.params.hasOwnProperty("method"))
-    return handleMethod(req, subpath,next);
+    return handleMethod(req, req.mvc.subpath,next);
   if(!req.mvc.model.schema.paths[req.params.subpath].hasOwnProperty("caster"))
     req.mvc.method = req.mvc.model.schema.paths[req.params.subpath].caster.instance;
   else
@@ -76,19 +78,19 @@ function handleMethod(req, schema, next){
   if(req.params.method.match(/^_/))
     return next(new Error("this is a hidden method"));
   if(req.params.hasOwnProperty("subpath")){
-    if(!schema.hasOwnProperty(req.params.method))
+    if(!(req.params.method in schema))
       return next(new Error("Nonexsistant Subpath method"))
     if(typeof schema[req.params.method] != "function")
       return next(new Error("This property is not a function"))
-    req.mvc.args = collectArgs(req, scehma[req.params.method]);
+    collectArgs(req, schema[req.params.method]);
   }else if(req.params.hasOwnProperty("instance")){
     if(!schema.methods.hasOwnProperty(req.params.method))
       return next(new Error("Nonexistant Instance method"));
-      req.mvc.args = collectArgs(req, schema.methods[req.params.method]);
+    collectArgs(req, schema.methods[req.params.method]);
   }else{
     if(!schema.statics.hasOwnProperty(req.params.method))
       return next(new Error("Nonexistant Class method"));
-    req.mvc.args = collectArgs(req, schema.statics[req.params.method]);
+    collectArgs(req, schema.methods[req.params.method]);
   }
   req.mvc.method = req.params.method;
   next();

@@ -1,1 +1,5 @@
-<a href="{{=it.utils.object2URL(it.value)||it.path.ref+"/"+it.value}}" >{{=it.value}}</a>
+{{
+console.log(it.path);
+}}
+
+<a href="{{=it.path.ref+"/"+it.value}}" >{{=it.value}}</a>

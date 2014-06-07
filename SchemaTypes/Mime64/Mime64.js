@@ -7,9 +7,9 @@ function Mime64(mimetype, data){
   }else if(arguments.length == 1){
     if(typeof mimetype == "string")
       ret = this._fromSource(mimetype);
-    else if(value instanceof JSONObject)
+    else if(typeof mimetype == "object"){
       ret = this._fromJSON(mimetype);
-    else
+    }else
       throw new Error("Mime64: Objects can only be created from valid strings, json or using arguments");
     this.mimetype = ret[0];
     this.data = ret[1];
@@ -25,7 +25,7 @@ function Mime64(mimetype, data){
     }
   }
 
-  this.size = data.length*8;
+  this.size = this.data.length*8;
 
 }
 
@@ -35,7 +35,7 @@ Mime64.prototype.HTTPRequest = function(res){
 }
 
 Mime64.prototype._fromJSON = function(value){
-  if(!(value instanceof JSONObject))
+  if(!(typeof value == "object"))
     throw new Error("Mime64: first argument needs to be a valid JSONObject when using fromJSON");
   if(!value.hasOwnProperty("mimetype") || !value.hasOwnProperty("data")){
     var err = "Missing Property when creating Mime64 object: ";
@@ -58,16 +58,18 @@ Mime64.prototype._fromJSON = function(value){
 }
 
 Mime64.prototype._fromSource = function(value){
-  if(typeof value == "string")
+  if(typeof value != "string")
     throw new Error("Mime64: first argument must be a string when using \"fromSource\" method")
-  if(value.index("data:") == -1)
+  if(value.indexOf("data:") != 0)
     throw new Error("Mime64: Need to specify a header when storing a base64 string")
-  var i = value.indexOf(', ');
-  var mimetype = value.slice(0,i).substring(head.indexOf(":"), head.indexOf(";"));
-  var data = value.slice(i+2);
+  var i = value.indexOf(';base64, ');
+  if(i == -1)
+    throw new Error("Mime64: Need to specify when the data begins");
+  var mimetype = value.slice(0,i).substring(value.indexOf(":")+1);
+  var data = value.slice(i+9);
   if(!data.match(this.regex))
     throw new Error("Mime64: The data is not a valid base64 encoded string");
-  return new [mimetype, data];
+  return [mimetype, data];
 }
 
 Mime64.prototype.asSource = function(){

@@ -1,4 +1,6 @@
 var mongoose = require("mongoose");
+var fs = require("fs");
+
 
 module.exports = function(config,debug,next){
 mongoose.set("debug", debug)
@@ -33,36 +35,24 @@ var fs = require("fs");
 
 db.on( "error", function(error){
   console.log("ERROR connecting to: " + url)
+  throw error;
 });
 db.on("connected",function(){
   console.log("SUCCESSFULLY connected to: " + url);
+
+fs.readdirSync(__dirname+"/../SchemaTypes").forEach(function(file){
+  require(__dirname+"/../SchemaTypes"+"/"+file)(mongoose);
+});
+fs.readdirSync(__dirname+"/../models").forEach(function(file){
+  require(__dirname+"/../models"+"/"+file);
+});
   if(typeof next != "undefined")
-    next(mongoose);
+    return next(mongoose);
+  else
+    return db;
 });
 db.on("disconnected", function(){
   console.log("DISCONNECTED from the database: " + url);
 });
 
-var fs = require("fs");
-
-checker = function(path){
-  fs.readdirSync(path).forEach(function(file){
-    stats = fs.statSync(path+"/"+file);
-    if(stats.isDirectory())
-      checker(path+"/"+file);
-    else
-      try{
-        require(path+"/"+file);
-      }catch(e){
-        console.log("Model Error["+path+"/"+file+"]: "+e);
-      }
-  });
-}
-checker(__dirname+"/../models");
-
-fs.readdirSync(__dirname+"/../SchemaTypes").forEach(function(file){
-  require(__dirname+"/../SchemaTypes"+"/"+file)(mongoose);
-});
-
-return db;
-}
+};

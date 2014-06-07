@@ -26,7 +26,7 @@ For now create an accordian group
       }}
       {{~it.data :value:key}}
         <li>
-          {{=it.mongooseUI(psuedopath,value)}}
+          {{=it.mongooseUI(psuedopath,it.mvc)}}
           <input type="hidden" name="{{=it.path.path}}[]" value="{{=value}}" />
           <button>Remove</button>
         </li>
@@ -35,7 +35,7 @@ For now create an accordian group
   </div>
   <h3>Add</h3>
   <div>
-    {{=it.mongooseUI(psuedopath,void(0), true)}}
+    {{=it.mongooseUI(psuedopath,it.mvc, true)}}
     <button>Add</button>
   </div>
 </div>

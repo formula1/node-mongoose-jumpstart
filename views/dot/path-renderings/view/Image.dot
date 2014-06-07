@@ -1,1 +1,3 @@
-<img src="{{=it.utils.object2URL(it.instance)+path.path+"/!/HTTPRequest"}}" />
+{{ if(typeof it.value != "undefined"){ }}
+<img src="{{=it.utils.object2URL(it.instance)+"/"+it.path.path+"/!/HTTPRequest"}}" />
+{{ } }}

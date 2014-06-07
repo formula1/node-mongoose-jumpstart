@@ -36,7 +36,7 @@ var url = it.utils.object2URL(it.data.model);
       {{? model.schema.paths[i].isRequired }}
       style="color:#F00"
       {??}
-    >{{=currentpath.path}}:</strong>{{it.utils.mongooseUI(currentpath, it.mvc.instance[i], true)}}
+    >{{=currentpath.path}}:</strong>{{it.utils.mongooseUI(currentpath, it.instance, true)}}
   </div>
   <div>
     <button type="submit">Save</button>
