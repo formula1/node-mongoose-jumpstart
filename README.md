@@ -52,7 +52,9 @@ $ node run
 ## Next Steps
 - Work on Maps SchemaType
 - Work On "Consolidation" for Lists (When Displaying Multiple of the )
+
 > When multiple that involve a third party UI, they are consolidated into the way that third party UI handles lists
+
 - Work on input Pages
 
 ## Finished Steps
