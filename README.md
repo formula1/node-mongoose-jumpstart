@@ -77,6 +77,7 @@ nothing
 2) UI
 - PrePackage: HTML and CSS Base, JSON, XML
 - Seperated into
+
 | Layout | Site Indexes | Instance     | SchemaType | Side Bar            |
 |--------|--------------|--------------|------------|---------------------|
 | HTML   | THE Index    | List         | Full View  | Method Forms        |
