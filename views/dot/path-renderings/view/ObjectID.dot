@@ -1,5 +1,20 @@
 {{
-console.log(it.path);
+console.log(JSON.stringify(it.path));
+
+var m = it.utils.getModel(it.value);
+if(typeof m == "undefined"){
 }}
 
-<a href="{{=it.path.ref+"/"+it.value}}" >{{=it.value}}</a>
+<a href="{{=it.path.options.ref+"/"+it.value}}" >{{=it.value}}</a>
+
+{{
+
+}else{
+
+}}
+{{=it.include(__root+"/views/dot/path-renderings/preview.dot", it)}}
+{{
+
+}
+
+}}

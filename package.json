@@ -6,31 +6,28 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies":{
-    "async":"latest",
-    "underscore":"latest",
-
-    "express": ">=4.0",
-    "body-parser":"latest",
-    "compression":"latest",
-    "method-override":"latest",
-    "express-session":"latest",
-    "errorhandler":"latest",
-    "csurf":"latest",
-
+  "dependencies": {
+    "async": "latest",
+    "body-parser": "latest",
+    "bower": "latest",
+    "cheerio": "latest",
+    "compression": "latest",
+    "connect-flash": "latest",
     "connect-mongo": "latest",
-    "connect-flash":"latest",
-
-    "mongoose":"latest",
-    "mpath":"latest",
-    "node-mime":"latest",
-
-    "dot":"latest",
-    "cheerio":"latest",
-    "express-device":"latest",
-    "node-html-encoder":"latest"
-
-
+    "csurf": "latest",
+    "dot": "latest",
+    "errorhandler": "latest",
+    "express": ">=4.0",
+    "express-device": "latest",
+    "express-session": "latest",
+    "method-override": "latest",
+    "mongoose": "latest",
+    "mpath": "latest",
+    "node-html-encoder": "latest",
+    "node-mime": "latest",
+    "serve-favicon": "latest",
+    "sortedlist": "^0.3.1",
+    "underscore": "latest"
   },
   "author": "Sam Tobia",
   "license": "ISC"

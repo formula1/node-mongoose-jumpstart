@@ -1,9 +1,12 @@
-<h1>{{=it.mvc.model.modelName}}</h1>
 {{
   var nestedPaths = {};
-  var model = it.mvc.model;
-  var url = it.utils.object2URL(it.mvc.instance);
+  var model = it.utils.string2Model(it.path.options.ref);
+  var url = it.utils.object2URL(it.value);
+}}
 
+<h3><a href="{{=url}}" >{{=it.value.id}}</h3>
+
+{{
   for(var i in model.schema.paths){
     var currentpath;
     if(i.match(/^_|_$/))
@@ -32,12 +35,8 @@
 }}
 <div>
   <strong>{{=currentpath.path}}:</strong>
-  {{=it.mongooseUI(currentpath, it.mvc.instance)}}
+  {{=it.mongooseUI(currentpath, it.value)}}
 </div>
 {{
   }
 }}
-<div>
-  <a href="{{=url}}/update"><button type="button">Update</button></a>
-  <a href="{{=url}}/delete"><button type="button">Delete</button></a>
-</div>

@@ -1,6 +1,11 @@
+{{ it.enqueStyle("/bower_components/filament-dialog/dist/dialog.css");}}
+{{ it.enqueStyle("/css/vendor/filament-group/tablesaw.css");}}
+{{ it.enqueScript("/bower_components/jquery/dist/jquery.js");}}
+{{ it.enqueScript("/bower_components/filament-dialog/dist/dialog.min.js");}}
+{{ it.enqueScript("/bower_components/filament-dialog/dist/dialog.build.js");}}
+{{ it.enqueScript("/js/vendor/filament-group/tablesaw.js");}}
 <h3>Items</h3>
 <table
-{{ it.enqueScript("/js/tablesaw.js");}}
   class="tablesaw"
   data-mode="swipe"
   data-sortable

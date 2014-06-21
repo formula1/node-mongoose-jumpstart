@@ -32,105 +32,120 @@ function preAmble(success){
     });
   };
 }
+var plugins = require(__dirname+"/../plugin.js")
+plugins.initiateFilter("initializeExpressApp");
 
-module.exports =function(app){
-  app.get(/^\/?$/, preAmble(function(req,res,next){
-    console.log("index");
-        Render(req, res, next,"dot/main/index");
-  }));
-  app.post("/:model/!/:method", preAmble(function(req, res, next){
-    if(req.mvc.method == "add")
-      return Render("models/page-renderings/add",req,res);
-    if(req.mvc.method == "save"){
-      return require("./routepeices/edit.js")(req,res, function(err, data){
+
+module.exports =function(app, next){
+  plugins.emit("initializeExpressApp", app, function(err_arr){
+    if(err_arr){
+      for(var i=0;i<err_arr.length;i++)
+        console.log(err_arr[i].message);
+    }
+
+    app.get(/^\/?$/, preAmble(function(req,res,next){
+      console.log("index");
+          Render(req, res, next,"dot/main/index");
+    }));
+    app.post("/:model/!/:method", preAmble(function(req, res, next){
+      if(req.mvc.method == "add")
+        return Render("models/page-renderings/add",req,res);
+      if(req.mvc.method == "save"){
+        return require("./routepeices/edit.js")(req,res, function(err, data){
+          if(err)
+            console.log(err);
+          req.mvc.instance = data;
+          Redirect(utils.object2URL(data),req,res);
+        });
+      }
+      if(method == "advanced-search")
+        return Render("models/page-renderings/advanced-search",req,res);
+      if(method =="search"){
+        return require("./routepeices/list.js")(req,res, function(err, data){
+          if(err)
+            console.log(err);
+          req.mvc.instance = data;
+          Redirect(utils.object2URL(data),req,res);
+        });
+      }
+      schema = model.schema;
+      if(schema.methods.hasOwnProperty(method)){
+        return require("./routepeices/method.js")(req,res, function(err, data){
+          if(err)
+            console.log(err);
+          Redirect(utils.object2URL(doc),req,res);
+        });
+      }
+      console.log("can't find it");
+      next();
+    }));
+    app.post("/:model/:instance/!/:method", preAmble(function(req, res, next){
+      if(req.mvc.method == "edit")
+        return Render("models/page-renderings/edit",req,res);
+      if(req.mvc.method == "save"){
+        return require("./routepeices/edit.js")(req,res, function(err, data){
+          if(err)
+            console.log(err);
+          Redirect(utils.object2URL(req.mvc.instance));
+        });
+      }
+      if(method == "delete"){
+        return require("./routepeices/delete.js")(req,res, function(err, data){
+          if(err)
+            console.log(err);
+          Redirect(utils.object2URL(req.mvc.model));
+        });
+      }
+      schema = model.schema;
+      if(schema.methods.hasOwnProperty(method)){
+        return require("./routepeices/method.js")(req,res, function(err, data){
+          if(err)
+            console.log(err);
+          Redirect(utils.object2URL(doc),req,res);
+        });
+      }
+      console.log("can't find it");
+      next();
+    }));
+    app.get("/:model/:instance/:subpath/!/:method", preAmble(function(req,res,next){
+      console.log("in method");
+      return require("./routepeices/method.js")(req,res, function(err, data){
         if(err)
           console.log(err);
-        req.mvc.instance = data;
-        Redirect(utils.object2URL(data),req,res);
+        Redirect(utils.object2URL(req.mvc.instance)+req.mvc.subpath,req,res);
       });
-    }
-    if(method == "advanced-search")
-      return Render("models/page-renderings/advanced-search",req,res);
-    if(method =="search"){
+    }));
+    app.get("/:model/:instance/:subpath", preAmble(function(req,res,next){
+      require("./routepeices/subpath.js")(req, res, function(err){
+        if(err){
+          console.log(err.message);
+          return Redirect(utils.object2URL(model), req, res);
+        }
+        Render("models/path-renderings/"+req.mvc.method,req,res);
+      });
+    }));
+    app.get("/:model/:instance", preAmble(function(req,res,next){
+      require("./routepeices/view.js")(req, res, function(err){
+        if(err){
+          console.log(err.message);
+          return Redirect(utils.object2URL(model), req, res);
+        }
+        Render(req,res, next, "dot/main/view");
+      });
+    }));
+    app.get("/:model", preAmble(function(req, res, next){
       return require("./routepeices/list.js")(req,res, function(err, data){
-        if(err)
+        if(err){
           console.log(err);
-        req.mvc.instance = data;
-        Redirect(utils.object2URL(data),req,res);
+          return next(err);
+        }
+        req.mvc.instances = data;
+        Render(req,res, next, "dot/main/model");
       });
-    }
-    schema = model.schema;
-    if(schema.methods.hasOwnProperty(method)){
-      return require("./routepeices/method.js")(req,res, function(err, data){
-        if(err)
-          console.log(err);
-        Redirect(utils.object2URL(doc),req,res);
-      });
-    }
-    console.log("can't find it");
+    }));
+
     next();
-  }));
-  app.post("/:model/:instance/!/:method", preAmble(function(req, res, next){
-    if(req.mvc.method == "edit")
-      return Render("models/page-renderings/edit",req,res);
-    if(req.mvc.method == "save"){
-      return require("./routepeices/edit.js")(req,res, function(err, data){
-        if(err)
-          console.log(err);
-        Redirect(utils.object2URL(req.mvc.instance));
-      });
-    }
-    if(method == "delete"){
-      return require("./routepeices/delete.js")(req,res, function(err, data){
-        if(err)
-          console.log(err);
-        Redirect(utils.object2URL(req.mvc.model));
-      });
-    }
-    schema = model.schema;
-    if(schema.methods.hasOwnProperty(method)){
-      return require("./routepeices/method.js")(req,res, function(err, data){
-        if(err)
-          console.log(err);
-        Redirect(utils.object2URL(doc),req,res);
-      });
-    }
-    console.log("can't find it");
-    next();
-  }));
-  app.get("/:model/:instance/:subpath/!/:method", preAmble(function(req,res,next){
-    return require("./routepeices/method.js")(req,res, function(err, data){
-      if(err)
-        console.log(err);
-      Redirect(utils.object2URL(req.mvc.instance)+req.mvc.subpath,req,res);
-    });
-  }));
-  app.get("/:model/:instance/:subpath", preAmble(function(req,res,next){
-    require("./routepeices/subpath.js")(req, res, function(err){
-      if(err){
-        console.log(err.message);
-        return Redirect(utils.object2URL(model), req, res);
-      }
-      Render("models/path-renderings/"+req.mvc.method,req,res);
-    });
-  }));
-  app.get("/:model/:instance", preAmble(function(req,res,next){
-    require("./routepeices/view.js")(req, res, function(err){
-      if(err){
-        console.log(err.message);
-        return Redirect(utils.object2URL(model), req, res);
-      }
-      Render(req,res, next, "dot/main/view");
-    });
-  }));
-  app.get("/:model", preAmble(function(req, res, next){
-    return require("./routepeices/list.js")(req,res, function(err, data){
-      if(err){
-        console.log(err);
-        return next(err);
-      }
-      req.mvc.instances = data;
-      Render(req,res, next, "dot/main/model");
-    });
-  }));
+
+  });
+
 };

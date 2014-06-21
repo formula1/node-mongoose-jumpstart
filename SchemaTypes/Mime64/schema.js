@@ -76,15 +76,18 @@ module.exports = function(mongoose, supported_mimes, name){
 							" please add the mimetype to the second argument when you are defining the schema"
 							,value,this.path
 						);
-					var header = "data:"+mimetype+";base64, ";
 					var size = stats.size;
-					if(size > 3000000-header.length*8)
+					if(size > 3000000-mimetype.length*8-16)
 						throw new CastError("Can't store a file greater than "+size+" of mimetype "+mimetype,value,this.path)
 					var tmp = new Buffer(0);
 					fs.readSync(value, tmp, 0, size, 0);
-					return header+tmp.toString("base64");
+					var count = new Buffer(2);
+					count.writeUInt16LE(mimetype.length,0);
+					mimetype = new Buffer(mimetype, "utf8");
+					return Buffer.concat([count,mimetype,tmp], mimetype.length+2+tmp.length);
 				}
 			}
+			console.log("miming");
 			var ob = new Mime64(value);
 		}catch(e){
 			console.log("cast err"+e.message);
@@ -98,9 +101,9 @@ module.exports = function(mongoose, supported_mimes, name){
 				,value,this.path
 			);
 		}
-		if(ob.size > 3000000-ob.mimetype.length*8)
+		if(ob.size > 3000000-ob.mimetype.length*8-16)
 			throw new CastError("Can't store a file greater than "+(3000000-ob.mimetype.length*8)+" of mimetype "+ob.mimetype,value,this.path)
-		return ob.asSource();
+		return ob.asBuffer();
 	};
 
 	/*!

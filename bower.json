@@ -1,0 +1,9 @@
+{
+  "name": "jumpstart",
+  "version": "0.0.1",
+  "main": "public/css/main.css",
+  "dependencies": {
+    "jquery": "latest",
+    "filament-dialog": "latest"
+  }
+}

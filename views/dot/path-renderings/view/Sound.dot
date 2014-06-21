@@ -3,7 +3,7 @@
   var url = it.utils.object2URL(it.instance);
   url += "/"+it.path.path;
 }}
-<sound
+<audio
   controls
   type="{{=it.value.mimetype}}"
   src="{{=url}}/!/HTTPRequest"

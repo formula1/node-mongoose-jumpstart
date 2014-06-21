@@ -27,7 +27,11 @@ There are a total of {{=it.mvc.grandtotal}} documents stored here
   <tbody>
   {{~ it.mvc.modelStats :value:key }}
     <tr>
-      <td>{{=value.modelName}}</td>
+      <td>
+        <a href="{{=it.utils.object2URL(
+                    it.utils.string2Model(value.modelName)
+        )}}">{{=value.modelName}}</a>
+      </td>
       <td>{{=value.doccount}}</td>
       <td>{{=value.createcount}}</td>
       <td>{{=value.requestcount}}</td>

@@ -5,10 +5,13 @@ var Encoder = require('node-html-encoder').Encoder;
 var he = new Encoder("entity");
 
 var utils = {
+  string2Model: function(init_string){
+    return mongoose.model(init_string);
+  },
   htmlEncode: function(text){
     return he.htmlEncode(text);
   },
-  getModel: function(){
+  getModel: function(object){
     if(object instanceof mongoose.Document)
       return mongoose.model(object.constructor.modelName)
     if(object.hasOwnProperty("modelName"))

@@ -2,7 +2,7 @@ var doT = require("dot");
 var fs = require("fs");
 var path2dots = {};
 var cheerio = require("cheerio");
-var utils = require("./utils");
+var utils = require("../utils");
 var _ = require("underscore");
 var mpath = require("mpath");
 
@@ -38,6 +38,24 @@ cloner.prototype.enqueScript = function(scriptpath, footer){
     this._eqsfoot.push(scriptpath);
 };
 
+cloner.prototype.enqueStyle = function(scriptpath, footer){
+  /*
+    the most important things for the scripts is...
+    1) We dont repeat scripts
+    2) Each script either goes in header or footer
+    3) All scripts can retrieve dependencies properly
+    4) Each script may take server parameters (I'll worry about this later)
+  */
+  if(!this.hasOwnProperty("_eqst"))
+    this._eqst = [];
+  if(this._eqst.indexOf(scriptpath) != -1)
+    return;
+  this._eqst.push(scriptpath);
+  if(typeof footer != "undefined" && footer)
+    this._eqstfoot.push(scriptpath);
+};
+
+
 cloner.prototype.mongooseUI = function(path, instance, isInput){
   if(isInput == "input" || isInput === true)
     isInput = "input";
@@ -67,8 +85,15 @@ cloner.prototype.mongooseUI = function(path, instance, isInput){
 var runPath = function(path, args, next){
   var cloned = new cloner(args);
   cloned.content = path;
-  var content = doT.template(fs.readFileSync(__dirname+"/../views/dot/layout.dot"))(cloned);
+  var content = doT.template(fs.readFileSync(__root+"/views/dot/layout.dot"))(cloned);
   var $ = cheerio.load(content);
+  if(cloned.hasOwnProperty("_eqst")){
+    for(var i=0;i<cloned._eqst.length;i++){
+      $('head').append(
+        "<link rel=\"stylesheet\" type=\"text/css\" href=\""+cloned._eqs[i]+"\" />"
+      );
+    }
+  }
   if(cloned.hasOwnProperty("_eqs")){
     for(var i=0;i<cloned._eqs.length;i++){
       if(cloned._eqsfoot && cloned._eqsfoot.indexOf(cloned._eqs[i]) != -1)

@@ -7,7 +7,7 @@ for(var i in it.path.subpaths){
 }}
 {{=properpath}}: {{=it.mongooseUI(
       it.path.subpaths[i],
-      it.mvc
+      it.instance
     )}}<br/>
 {{
 }

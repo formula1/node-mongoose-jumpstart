@@ -18,6 +18,8 @@ if (cluster.isMaster) {
     config.debug = false;
   var app;
   var db = require("./framework/database.js")(config.mongo,config.debug, function(){
-    app = require("./framework/express-combat.js")(config.express,config.debug);
+    require("./framework/express-combat.js")(config.express,config.debug, function(the_app){
+      app = the_app;
+    });
   });
 }

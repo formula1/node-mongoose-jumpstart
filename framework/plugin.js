@@ -32,9 +32,10 @@ var hooks = {};
 var async = require("async");
 function getPlugins(){
   var plugins = [];
-  fs.readdirSync(__dirname+"/../plugins").forEach(function(file){
-      if(!file.match("^index"))
-        plugins.push(require(process.cwd() + "/app/plugins/"+file));
+  var array = fs.readdirSync(__dirname+"/../plugins")
+  array.forEach(function(file){
+      var temp = require(__dirname+ "/../plugins/"+file)
+      plugins.push(temp);
   });
   return plugins;
 }
@@ -47,9 +48,9 @@ module.exports ={
     var plugins = getPlugins();
     var commands = [];
     while(plugins.length>0){
-      if(!plugins[0].hasOwnProperty(command))
+      if(command in plugins[0])
         commands.push(plugins[0][command]);
-      plugins.unshift();
+      plugins.shift();
     }
     commands.sort(
       function(a,b){
@@ -82,8 +83,15 @@ module.exports ={
     });
     async.eachSeries(
       hooks[command],
-      function(hook){
-        hook.apply(void(0), the_args)
+      function(hook,next){
+        try{
+          var ret = hook.apply(void(0), the_args);
+          if(typeof ret != "undefined")
+            ret_arr.push(ret);
+        }catch(e){
+          err_arr.push(e)
+        }
+        next();
       },
       function(){
         if(err_arr.length == 0)
