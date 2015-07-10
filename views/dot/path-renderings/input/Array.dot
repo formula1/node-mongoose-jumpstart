@@ -5,37 +5,44 @@ For now create an accordian group
 -create a "add" group item with default listing
 
 */
-
+var uid = it.utils.getUnique();
 }}
 <script type="text/javascript" >
   jQuery(function($){
-    $( "#{{=it.form.id+it.path.path}}" ).accordion();
-    $( "#{{=it.form.id+it.path.path}} .sortable" ).sortable();
+    $( "#{{=uid+it.path.path}}" ).accordion();
+    $( "#{{=uid+it.path.path}} .sortable" ).sortable();
   })
 </script>
-<div id="{{=it.form.id+it.path.path}}">
+<div id="{{=uid+it.path.path}}">
   <h3>Items</h3>
   <div>
     <ul class="sortable">
       {{
         var psuedopath = {
           instance:it.path.caster.instance,
-          path:it.path.path+"[]"
+          path:it.path.path,
           options:it.path.caster.options
-        }
+        };
       }}
-      {{~it.data :value:key}}
-        <li>
-          {{=it.mongooseUI(psuedopath,it.mvc)}}
-          <input type="hidden" name="{{=it.path.path}}[]" value="{{=value}}" />
-          <button>Remove</button>
-        </li>
-      {{~}}
+{{ for(var i = 0; i< it.value.length; i++){
+     var value = it.value[i];
+     var temppath = {
+       instance:it.path.caster.instance,
+       path:it.path.path+"."+i,
+       options:it.path.caster.options
+     };
+ }}
+  <li>
+    {{=it.mongooseUI(temppath,it.instance)}}
+    <input type="hidden" name="{{=it.path.path}}[]" value="{{=value}}" />
+    <button>Remove</button>
+  </li>
+{{ } }}
     </ul>
   </div>
   <h3>Add</h3>
   <div>
-    {{=it.mongooseUI(psuedopath,it.mvc, true)}}
+    {{=it.mongooseUI(psuedopath,void(0), true)}}
     <button>Add</button>
   </div>
 </div>

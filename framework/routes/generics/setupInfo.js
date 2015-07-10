@@ -84,11 +84,13 @@ function handleMethod(req, schema, next){
       return next(new Error("This property is not a function"))
     collectArgs(req, schema[req.params.method]);
   }else if(req.params.hasOwnProperty("instance")){
-    if(!schema.methods.hasOwnProperty(req.params.method))
+    if(!schema.methods.hasOwnProperty(req.params.method)
+    && !req.params.method.match(/edit|save|delete/))
       return next(new Error("Nonexistant Instance method"));
     collectArgs(req, schema.methods[req.params.method]);
   }else{
-    if(!schema.statics.hasOwnProperty(req.params.method))
+    if(!schema.statics.hasOwnProperty(req.params.method)
+    && !req.params.method.match(/create|save|search|batch/))
       return next(new Error("Nonexistant Class method"));
     collectArgs(req, schema.methods[req.params.method]);
   }
@@ -115,6 +117,15 @@ function getModelStats(modelname, next){
 }
 
 function collectArgs(req, funk){
+  if(req.params.method.match(/create|edit|delete/))
+    return
+  if(req.params.method.match(/save|search|batch/)){
+    if(req.method.toUpperCase() == "GET")
+      req.mvc.args = req.query;
+    else if(req.method.toUpperCase() == "GET")
+      req.mvc.args = req.body;
+    return;
+  }
   var argsnames = utils.getArgs(funk);
   var key;
   if(req.method.toUpperCase() == "GET")

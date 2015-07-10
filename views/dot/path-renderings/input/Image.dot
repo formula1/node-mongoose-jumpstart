@@ -1,0 +1,4 @@
+{{ if(typeof it.value != "undefined"){ }}
+<img src="{{=it.utils.object2URL(it.instance)+"/"+it.path.path+"/!/HTTPRequest"}}" />
+{{ } }}
+<input type="file" name="{{=it.path.path}}" ><br>

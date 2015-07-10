@@ -1,0 +1,6 @@
+<video
+  controls
+  type="{{=it.value.mimetype}}"
+  src="{{=it.utils.object2URL(it.instance)+"/"+it.path.path+"/!/HTTPRequest"}}"
+></video><br />
+<input type="file" name="{{=it.path.path}}" /><br>

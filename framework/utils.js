@@ -14,7 +14,7 @@ var utils = {
   getModel: function(object){
     if(object instanceof mongoose.Document)
       return mongoose.model(object.constructor.modelName)
-    if(object.hasOwnProperty("modelName"))
+    if("modelName" in object)
       return object
     else
       return

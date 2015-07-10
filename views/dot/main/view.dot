@@ -38,6 +38,6 @@
   }
 }}
 <div>
-  <a href="{{=url}}/update"><button type="button">Update</button></a>
-  <a href="{{=url}}/delete"><button type="button">Delete</button></a>
+  <a href="{{=url}}/!/edit"><button type="button">Update</button></a>
+  <a href="{{=url}}/!/delete"><button type="button">Delete</button></a>
 </div>

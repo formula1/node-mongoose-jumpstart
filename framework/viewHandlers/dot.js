@@ -62,7 +62,9 @@ cloner.prototype.mongooseUI = function(path, instance, isInput){
   else
     isInput = "view";
   var type;
-  if(path.hasOwnProperty("caster"))
+  if(typeof path == "undefined")
+    throw new Error("path is undefined");
+  if("caster" in path)
     type = "Array";
   else
     type = path.instance;

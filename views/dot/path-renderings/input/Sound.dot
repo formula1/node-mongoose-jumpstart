@@ -1,0 +1,12 @@
+{{  if(typeof it.value != "undefined"){ }}
+{{
+  var url = it.utils.object2URL(it.instance);
+  url += "/"+it.path.path;
+}}
+<audio
+  controls
+  type="{{=it.value.mimetype}}"
+  src="{{=url}}/!/HTTPRequest"
+></audio>
+{{ } }}
+<input type="file" name="{{=it.path.path}}" /><br>

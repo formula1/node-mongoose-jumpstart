@@ -1,10 +1,12 @@
 {{
   var validator = {};
-  if(it.path.hasOwnProperty("max"))
+  if(it.path.hasOwnProperty("max")){
     validator.max = it.path.max;
-  if(it.path.hasOwnProperty("min"))
+  }
+  if(it.path.hasOwnProperty("min")){
     validator.min = it.path.min
-  if(typeof it.data == "undefined"){
+  }
+  if(typeof it.value == "undefined"){
     if(validator.hasOwnProperty("min") && validator.min > 0)
       it.data = validator.min;
     else if(validator.hasOwnProperty("max") && validator.max < 0)
@@ -13,9 +15,9 @@
       it.data = 0;
   }
 }}
-<input type="number" name="{{it.path.path}}" value="{{it.data}}" />
+<input type="number" name="{{=it.path.path}}" value="{{=it.value}}" />
 <script>
   jQuery(function($){
-    $("#{{=it.form.id}}[name={{=it.path.path}}").spinner({{=JSON.stringify(validator);}});
+    $("#it.form.id [name={{=it.path.path}}").spinner({{=JSON.stringify(validator)}});
   });
 </script>

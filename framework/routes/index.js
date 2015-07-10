@@ -47,7 +47,7 @@ module.exports =function(app, next){
       console.log("index");
           Render(req, res, next,"dot/main/index");
     }));
-    app.post("/:model/!/:method", preAmble(function(req, res, next){
+    app.all("/:model/!/:method", preAmble(function(req, res, next){
       if(req.mvc.method == "add")
         return Render("models/page-renderings/add",req,res);
       if(req.mvc.method == "save"){
@@ -79,14 +79,14 @@ module.exports =function(app, next){
       console.log("can't find it");
       next();
     }));
-    app.post("/:model/:instance/!/:method", preAmble(function(req, res, next){
+    app.all("/:model/:instance/!/:method", preAmble(function(req, res, next){
       if(req.mvc.method == "edit")
-        return Render("models/page-renderings/edit",req,res);
+        return Render(req,res,next, "dot/main/update");
       if(req.mvc.method == "save"){
         return require("./routepeices/edit.js")(req,res, function(err, data){
           if(err)
             console.log(err);
-          Redirect(utils.object2URL(req.mvc.instance));
+          Redirect(req,res,utils.object2URL(req.mvc.instance));
         });
       }
       if(method == "delete"){
@@ -107,7 +107,7 @@ module.exports =function(app, next){
       console.log("can't find it");
       next();
     }));
-    app.get("/:model/:instance/:subpath/!/:method", preAmble(function(req,res,next){
+    app.all("/:model/:instance/:subpath/!/:method", preAmble(function(req,res,next){
       console.log("in method");
       return require("./routepeices/method.js")(req,res, function(err, data){
         if(err)
