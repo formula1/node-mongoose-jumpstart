@@ -1,5 +1,10 @@
-node-mongoose-jumpstart
-=======================
+# Mongoose Jumpstart
+
+I'm going to be splitting up this project into two as a result, this has little to no value until I've set that up
+
+Routing - https://github.com/formula1/Mongoose-Automated-Routing
+
+- - -
 
 # Mongoose Jumpstart
 Automates routing and property rendering for Mongo Databases.
